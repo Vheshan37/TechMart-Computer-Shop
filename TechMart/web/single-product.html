@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product</title>
+
+        <!-- CSS Links -->
+        <link rel="stylesheet" href="css/product.css" />
+        <link rel="stylesheet" href="css/default.css" />
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-straight/css/uicons-thin-straight.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+
+        <!-- JS Links -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    </head>
+
+    <body class="cursor-default w-dvw overflow-x-hidden background-color" onload="singleProductLoad();">
+
+        <div id="preloader" class="fixed inset-0 flex items-center justify-center bg-gray-900" style="z-index: 111">
+            <div class="preloader-container relative">
+                <div class="flex items-center justify-center">
+                    <div class="loader-circle w-24 h-24 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+                </div>
+                <div class="absolute text-center w-full top-32">
+                    <p class="text-lg text-gray-300 tracking-widest font-bold">Loading</p>
+                    <div class="dots text-lg text-blue-500 font-semibold mt-2">• • •</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="w-full flex justify-center sticky top-4 z-20" id="navigationMenu"></div>
+        <!-- Navigation Menu -->
+
+        <!-- Hero Section -->
+        <div class="w-dvw h-dvh relative flex flex-col pt-20 items-center">
+
+            <div class="p-1 pb-4 w-10/12">
+                <div class="breadcrumb flex items-center gap-2 text-gray-400">
+                    <a href="index.html"><iconify-icon class="cursor-pointer" icon="ic:round-home"></iconify-icon></a>
+                    <iconify-icon icon="mingcute:right-line"></iconify-icon>
+                    <span class="cursor-pointer">Product</span>
+                    <iconify-icon icon="mingcute:right-line"></iconify-icon>
+                    <span class="cursor-pointer">Laptop</span>
+                    <iconify-icon icon="mingcute:right-line"></iconify-icon>
+                    <span class="cursor-pointer" id="breadCrumbTitle">Product Name</span>
+                </div>
+
+
+                <div class="flex gap-2">
+
+                    <!--Image Side-->
+                    <div class="w-6/12">
+                        <div class="p-10">
+                            <img src="https://placehold.co/600x400?text=No+Image" style="object-fit: contain; max-height: 400px;"
+                                 id="imgViewer">
+                        </div> <!--Preview Image-->
+                        <div class="flex gap-1" id="productImageContainer">
+                            <div class="cursor-pointer hover:bg-white hover:bg-opacity-5 rounded w-1/5" id="productImageSlide">
+                                <img src="https://placehold.co/600x400?text=No+Image" alt="" onclick="changeTopProductImg(this);" id="imageSlide" style="height:150px; object-fit:contain;">
+                            </div>
+                            <div class="cursor-pointer hover:bg-white hover:bg-opacity-5 rounded w-1/5" id="productImageSlide">
+                                <img src="https://placehold.co/600x400?text=No+Image" alt="" onclick="changeTopProductImg(this);" id="imageSlide" style="height:150px; object-fit:contain;">
+                            </div>
+                            <div class="cursor-pointer hover:bg-white hover:bg-opacity-5 rounded w-1/5" id="productImageSlide">
+                                <img src="https://placehold.co/600x400?text=No+Image" alt="" onclick="changeTopProductImg(this);" id="imageSlide" style="height:150px; object-fit:contain;">
+                            </div>
+                            <div class="cursor-pointer hover:bg-white hover:bg-opacity-5 rounded w-1/5" id="productImageSlide">
+                                <img src="https://placehold.co/600x400?text=No+Image" alt="" onclick="changeTopProductImg(this);" id="imageSlide" style="height:150px; object-fit:contain;">
+                            </div>
+                            <div class="cursor-pointer hover:bg-white hover:bg-opacity-5 rounded w-1/5" id="productImageSlide">
+                                <img src="https://placehold.co/600x400?text=No+Image" alt="" onclick="changeTopProductImg(this);" id="imageSlide" style="height:150px; object-fit:contain;">
+                            </div>
+                        </div> <!--Sub images-->
+                    </div>
+                    <!--Image Side-->
+
+                    <!--Details Side-->
+                    <div class="p-3 flex flex-col gap-2 w-6/12">
+                        <div class="flex flex-col">
+                            <div class="text-lg" id="productTitle">HP Pavilion x360 - 14-inch Convertible Laptop</div>
+                            <div class="text-sm font-semibold" id="productPrice">$ 3650 | <span class="text-red-600">$3860</span> (10%)</div>
+                            <div>
+                                <div class="flex text-sm items-center">
+                                    <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                    <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                    <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                    <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                    <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                    <span class="ml-2">(4.5/5) - 365 Reviews</span>
+                                </div>
+                            </div>
+                            <div class="text-sm my-1 mt-2" id="productStock">...</div>
+                            <button class="text-sm flex items-center gap-2 bg-purple-900 text-white p-2 px-6 rounded hover:scale-105"
+                                    style="width: fit-content;">
+                                <iconify-icon icon="iconoir:add-to-cart"></iconify-icon>
+                                Add to cart
+                            </button>
+                        </div>
+                        <div class="flex w-6/12">
+                            <div>
+                                <span class="">Quantity</span>
+                                <div class="flex items-center bg-gray-300 rounded">
+                                    <iconify-icon icon="flowbite:caret-down-solid" class="px-1"></iconify-icon>
+                                    <input type="number" name="" id="" value="1" style="max-width: 25px; "
+                                           class="bg-transparent text-center text-sm p-1" />
+                                    <iconify-icon icon="flowbite:caret-up-solid" class="px-1"></iconify-icon>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="buy-now-btn text-white p-2 flex mt-6 rounded px-6 hover:scale-105" style="width: fit-content;">Buy
+                            Now</button>
+                    </div>
+                    <!--Details Side-->
+                </div>
+            </div>
+
+        </div>
+        <!-- Hero Section -->
+
+
+        <!-- related products -->
+        <div class="w-dvw relative flex flex-col pt-20 items-center" id="similerProductSection">            
+            <div class="font-semibold text-lg mb-2 pl-3 w-10/12">Similer Products</div>            
+            <div class="related-container flex overflow-x-auto x-wheel-scroll w-10/12"
+                 style="scroll-snap-type: x mandatory;" id="similarProductContainer">
+                <div class="latest-slide" id="similarProduct">
+                    <div class="blur-background" style="background-image: url('img/LatestProducts/Product (1).png');" id="blurImage">
+                    </div>
+                    <div class="content">
+                        <div class="flex justify-center items-center p-6 h-4/6">
+                            <img src="img/LatestProducts/Product (1).png" id="similarImg"/>
+                        </div>
+                        <div class="flex flex-col text-white p-2">
+                            <div class="text-lg font-semibold" id="similarTitle">AMD FX-6100 Gaming computer Desktop</div>
+                            <div class="text-sm flex flex-col items-start">
+                                <span class="text-base mt-1" id="similarPrice">LKR: 23,550.00</span>
+                                <span class="text-sm" id="similarStock">(13) Sold | 6 items available</span>
+                                <div class="w-full flex">
+                                    <a href="#" class="buy-now-btn mt-3 px-6 py-2 rounded hover:scale-105 w-full" id="similarLink">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <!-- related products -->
+
+
+        <!-- Details & Reviews -->
+        <div class="w-dvw h-dvh relative flex flex-col pt-20 items-center">
+            <div class="overflow-hidden w-10/12">
+                <div class="flex gap-4">
+                    <button onclick="SpcDetailAndReviews('left');">Details</button>
+                    <button onclick="SpcDetailAndReviews('right');">Customer Reviews (235)</button>
+                </div>
+                <hr class="my-2">
+                <div class="flex w-12/12" id="detailsAndReviews">
+                    <div class="500 w-full min-w-full" id="featureListContainer">
+                        <div class="custom-row flex border-b" id="featureClone">
+                            <div class="w-5/12 text-base" id="feature">Processor:</div>
+                            <div class="w-7/12">
+                                <ul class="list-disc text-sm">
+                                    <li id="value">Intel Core i5-1135G7</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="custom-row flex border-b">
+                            <div class="w-5/12 text-base">RAM</div>
+                            <div class="w-7/12">
+                                <ul class="list-disc text-sm">
+                                    <li>8GB DDR4</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="custom-row flex border-b">
+                            <div class="w-5/12 text-base">Storage</div>
+                            <div class="w-7/12">
+                                <ul class="list-disc text-sm">
+                                    <li>256 SSD</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="custom-row flex border-b">
+                            <div class="w-5/12 text-base">Display</div>
+                            <div class="w-7/12">
+                                <ul class="list-disc text-sm">
+                                    <li>14-inch FHD (1920 x 1080) Touchscreen</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="custom-row flex border-b">
+                            <div class="w-5/12 text-base">Graphics</div>
+                            <div class="w-7/12">
+                                <ul class="list-disc text-sm">
+                                    <li>Intel Iris Xe Graphics</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="custom-row flex border-b">
+                            <div class="w-5/12 text-base">Operating System</div>
+                            <div class="w-7/12">
+                                <ul class="list-disc text-sm">
+                                    <li>Windows 11 Home</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="custom-row flex border-b">
+                            <div class="w-5/12 text-base">Description</div>
+                            <div class="w-7/12">
+                                <ul class="text-sm">
+                                    <li>The HP Pavilion x360 is designed for those who need a versatile and portable
+                                        computing experience. Its 360-degree hinge allows you to switch between laptop,
+                                        stand, tent, and tablet modes. Whether you're working, streaming, or gaming, this
+                                        laptop offers the performance and flexibility you need</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full min-w-full flex flex-col gap-2"
+                         style="max-height: 600px; overflow-y: auto; overflow-x: hidden;">
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                        <div class="review-container px-2 flex flex-col gap-2">
+                            <div class="review flex gap-4 justify-between bg-gray-100 p-2 rounded border">
+                                <div class="flex flex-col w-10/12">
+                                    <span class="text-base">User Name</span>
+                                    <span class="text-sm text-slate-500">"Lorem ipsum dolor sit amet consectetur adipisicing
+                                        elit. Deserunt suscipit perspiciatis praesentium! Delectus ducimus consectetur odio
+                                        quaerat sapiente dolorem nemo."</span>
+                                </div>
+                                <div class="text-sm text-slate-400" style="width: fit-content;">Date & Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Details & Reviews -->
+
+
+        <div class="w-dvw h-dvh relative flex flex-col pt-20 items-center">
+            <div class="w-10/12">
+                <div class="text-center text-lg">Technical Support & FAQs</div>
+                <div class="text-center text-sm text-slate-500 pb-10">Need help? Contact our support team or visit our FAQs
+                    page
+                </div>
+
+                <div class="text-base">Contact our Support team or visit our FAQs page for get further more details</div>
+                <div class="faq-container pt-2 flex flex-col gap-2">
+                    <div class="faq w-full bg-white bg-opacity-10 rounded p-2 px-4" onclick="FaqAction(this);">
+                        <div class="head flex justify-between items-center mb-2 cursor-pointer">
+                            <span class="text-slate-200"> <i class="fi fi-tr-lightbulb-question"></i> Does this laptop come with a warranty?</span>
+                            <iconify-icon icon="mingcute:up-line" class="icon"></iconify-icon>
+                            <!-- mingcute:down-line -->
+                            <!-- mingcute:up-line -->
+                        </div>
+                        <div class="text-slate-300 pl-10 body text-sm active">Yes, this laptop comes with a 1-year manufacturer's warranty.</div>
+                    </div>
+                    <div class="faq w-full bg-white bg-opacity-10 rounded p-2 px-4" onclick="FaqAction(this);">
+                        <div class="head flex justify-between items-center mb-2 cursor-pointer">
+                            <span class="text-slate-200"> <i class="fi fi-tr-lightbulb-question"></i> Can I upgrade the RAM?</span>
+                            <iconify-icon icon="mingcute:up-line" class="icon"></iconify-icon>
+                            <!-- mingcute:down-line -->
+                            <!-- mingcute:up-line -->
+                        </div>
+                        <div class="text-slate-300 pl-10 body text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias veniam amet modi.</div>
+                    </div>
+                    <div class="faq w-full bg-white bg-opacity-10 rounded p-2 px-4" onclick="FaqAction(this);">
+                        <div class="head flex justify-between items-center mb-2 cursor-pointer">
+                            <span class="text-slate-200"> <i class="fi fi-tr-lightbulb-question"></i> What is the return policy for this product?</span>
+                            <iconify-icon icon="mingcute:up-line" class="icon"></iconify-icon>
+                            <!-- mingcute:down-line -->
+                            <!-- mingcute:up-line -->
+                        </div>
+                        <div class="text-slate-300 pl-10 body text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur quaerat illum, temporibus suscipit praesentium dolor eius est officiis ipsam recusandae nihil expedita fugiat unde perferendis provident! Expedita sit dignissimos quasi, tempore ut recusandae suscipit cum! Eaque exercitationem fugiat repudiandae corrupti quas incidunt eum doloribus vitae?</div>
+                    </div>
+                    <div class="faq w-full bg-white bg-opacity-10 rounded p-2 px-4" onclick="FaqAction(this);">
+                        <div class="head flex justify-between items-center mb-2 cursor-pointer">
+                            <span class="text-slate-200"> <i class="fi fi-tr-lightbulb-question"></i> Does this laptop come with pre-installed software?</span>
+                            <iconify-icon icon="mingcute:up-line" class="icon"></iconify-icon>
+                            <!-- mingcute:down-line -->
+                            <!-- mingcute:up-line -->
+                        </div>
+                        <div class="text-slate-300 pl-10 body text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae impedit unde tempora, corrupti alias quas! Optio culpa hic excepturi placeat.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
+
+        <script src="js/default.js"></script>
+        <script src="js/product.js"></script>
+    </body>
+
+</html>

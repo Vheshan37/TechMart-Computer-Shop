@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product</title>
+
+        <!-- CSS Links -->
+        <link rel="stylesheet" href="css/product.css" />
+        <link rel="stylesheet" href="css/default.css" />
+        <link rel="stylesheet" href="css/shop.css" />
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-straight/css/uicons-thin-straight.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+
+        <!-- JS Links -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    </head>
+
+    <body class="cursor-default w-dvw overflow-x-hidden background-color" onload="shopOnload();">
+
+        <div id="preloader" class="fixed inset-0 flex items-center justify-center bg-gray-900" style="z-index: 111">
+            <div class="preloader-container relative">
+                <div class="flex items-center justify-center">
+                    <div class="loader-circle w-24 h-24 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+                </div>
+                <div class="absolute text-center w-full top-32">
+                    <p class="text-lg text-gray-300 tracking-widest font-bold">Loading</p>
+                    <div class="dots text-lg text-blue-500 font-semibold mt-2">• • •</div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Navigation Menu -->
+        <div class="w-full flex justify-center sticky top-4 z-20" id="navigationMenu"></div>
+        <!-- Navigation Menu -->
+
+
+        <div class="w-dvw h-dvh relative flex flex-col pt-20 items-center">
+
+            <div class="bg-white bg-opacity-5 rounded my-4 flex items-center w-8/12">
+                <input type="text"
+                       class="bg-transparent border-none outline-none py-2 px-4 flex-grow text-white text-opacity-75"
+                       placeholder="Search here..." id="searchInput">
+                <iconify-icon icon="ic:round-search" class="px-3 text-xl cursor-pointer" onclick="doSearch();"></iconify-icon>
+            </div>
+
+            <div class="p-1 pb-4 w-10/12">
+
+                <div class="text-pink-600 text-2xl font-semibold pb-4">All Products</div>
+
+                <div class="grid grid-cols-4 gap-x-1 gap-y-6" id="productContainer">
+
+
+                    <!-- Repeating Slide -->
+                    <div id="productSlide"
+                         class="product-slide relative overflow-hidden rounded-lg" style="background-image: linear-gradient(#1308a0, #0e049c, #110b67);">
+                        <div class="absolute top-0 left-0 w-full h-3/5"
+                             style="clip-path: polygon(0 0, 100% 0, 100% 59%, 0% 100%); background-image: linear-gradient(#1308a0, #0e049c, #110b67);"></div>
+                        <div class="blur-background h-3/6"
+                             style="background-image: url('img/LatestProducts/Product (2).png');" id="blurBackground">
+                        </div>
+                        <div class="relative z-10">
+                            <iconify-icon icon="iconoir:add-to-cart"
+                                          id="addToCart"
+                                          class="text-white absolute right-0 top-0 m-3 text-lg cursor-pointer transition duration-500 hover:scale-125"></iconify-icon>
+                            <div class="flex justify-center items-center p-2 h-3/6">
+                                <img src="img/LatestProducts/Product (2).png" class="slider-img" id="productImage" style="height: 250px"/>
+                            </div>
+                            <div class="flex flex-col text-white mt-2">
+                                <div class="text-left bg-pink-700 py-1 px-3 pr-6 w-fit"
+                                     style="border-radius: 0px 50px 50px 0;" id="productPrice">Price</div>
+                                <div class="text-lg font-semibold p-2 two-line" id="productTitle" title="">Title</div>
+                                <div class="text-sm p-2 text-center">
+                                    <hr/>
+                                    <button class="purple-shadow-btn my-6 px-6 py-3 rounded hover:scale-105 transition duration-500" id="productRead">Read More</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeating Slide -->    
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
+
+        <script src="js/default.js"></script>
+        <!--<script src="product.js"></script>-->
+        <script src="js/shop.js"></script>
+    </body>
+
+</html>

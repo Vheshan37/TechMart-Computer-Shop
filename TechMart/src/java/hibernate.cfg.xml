@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tech_mart?useSSL=false</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">Vheshan37@37</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <mapping class="model.entity.Brand"/>
+        <mapping class="model.entity.Cart"/>
+        <mapping class="model.entity.Category"/>
+        <mapping class="model.entity.Color"/>
+        <mapping class="model.entity.District"/>
+        <mapping class="model.entity.Feature"/>
+        <mapping class="model.entity.User"/>
+        
+        <mapping class="model.entity.CategoryHasBrand"/>
+        <mapping class="model.entity.ProductHasFeatureList"/>
+        <mapping class="model.entity.FeatureList"/>
+        
+        <mapping class="model.entity.Product"/>
+    </session-factory>
+</hibernate-configuration>

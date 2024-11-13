@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TechMart</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="css/default.css" />
+
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-brands/css/uicons-brands.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+
+        <script src="js/index.js"></script>
+        <script src="js/default.js"></script>
+    </head>
+
+    <body class="cursor-default w-dvw overflow-x-hidden background-color" onload="windowOnload('1');">
+
+
+
+        <div id="preloader" class="fixed inset-0 flex items-center justify-center bg-gray-900" style="z-index: 111">
+            <div class="preloader-container relative">
+                <div class="flex items-center justify-center">
+                    <div class="loader-circle w-24 h-24 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+                </div>
+                <div class="absolute text-center w-full top-32">
+                    <p class="text-lg text-gray-300 tracking-widest font-bold">Loading</p>
+                    <div class="dots text-lg text-blue-500 font-semibold mt-2">• • •</div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Navigation Menu -->
+        <div class="w-full flex justify-center sticky top-4 z-20" id="navigationMenu"></div>
+        <!-- Navigation Menu -->
+
+        <!-- Hero Section -->
+        <div class="w-dvw relative flex flex-col pt-20">
+
+            <div class="hero-titles text-center">
+                <div class="text-2xl font-bold">Exclusive Deals on Top Computer Brands</div>
+                <div class="text-sm text-slate-500">Upgrade Your Tech Game with the Latest in Laptops and Accessories
+                </div>
+            </div>
+
+            <div class="flex justify-center items-end pt-4">
+                <img src="img/Speaker 03.png"
+                     style="height: 300px; width: 200px; object-fit: contain; transform: scaleX(-1);" class="">
+                <div class="monitor relative">
+                    <div class="monitor-border">
+
+                        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.1"
+                               class="absolute bottom-20 -left-5 bg-red-500" style="z-index: 10; transform: rotate(270deg);" />
+
+                        <iconify-icon icon="fluent:speaker-mute-28-filled"
+                                      class="text-2xl absolute right-5 top-5 hidden cursor-pointer" onclick="speaker(false);"
+                                      id="mute" style="z-index: 10;"></iconify-icon>
+                        <iconify-icon icon="fluent:speaker-2-24-filled"
+                                      class="text-2xl absolute right-5 top-5 cursor-pointer" onclick="speaker(true);" id="unmute"
+                                      style="z-index: 10;"></iconify-icon>
+
+                        <iconify-icon icon="carbon:play-filled" onclick="playVideo(this);" class="absolute text-4xl cursor-pointer play-btn transition duration-500 ease-in-out"></iconify-icon>
+                        <video loop class="h-full" id="myVideo">
+                            <source src="video/video.mp4" type="video/mp4">
+                        </video>
+
+
+                        <div class="monitor-off"></div>
+                    </div>
+                    <div class="monitor-stick"></div>
+                    <div class="monitor-stand"></div>
+                </div>
+                <img src="img/Speaker 03.png" style="height: 300px; width: 200px; object-fit: contain;" class="">
+            </div>
+
+            <div class="cta-container flex justify-center mt-16">
+                <div class="cta-content w-10/12 flex justify-between items-center">
+                    <div class="w-6/12 text-md tracking-wide">
+                        <div class="text-base text-blue-300">
+                            Discover the latest in computers, hardware, and accessories.
+                            Shop smart, order online, and get the best deals delivered to your doorstep.
+                            <b class="text-blue-500">Tech made easy. Shopping made simple.</b>
+                        </div>
+                        <button class="purple-shadow-btn my-6 px-6 py-3 rounded hover:scale-105 transition duration-500">Shop Now</button>
+                    </div>
+<!--                    <div class="w-4/12 flex items-center flex-col bg-blue-900 p-6 rounded-lg shadow-lg">
+                        <div class="text-xl font-semibold text-pink-300 mb-2">Limited Offers</div>
+                        <div class="text-md text-white">Doughnuts</div>
+                        <button class="mt-3 px-4 py-2 text-sm underline text-pink-400 hover:text-pink-500 transition duration-300">
+                            claim Now
+                        </button>
+                    </div>-->
+                </div>
+            </div>
+
+        </div>
+        <!-- Hero Section -->
+
+        <!-- Brand Slider -->
+        <div class="w-dvw relative flex items-center flex-col mt-6">
+            <div class="slider overflow-hidden background-color2" id="slider">
+                <div class="slider-track" id="sliderTrack">
+                    <!-- 10 icons, each inside a div -->
+                    <div class="slide"><iconify-icon icon="simple-icons:msibusiness"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="simple-icons:asus"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="simple-icons:logitechg"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="simple-icons:razer"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="wpf:mac-os"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="simple-icons:acer"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="simple-icons:dell"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="simple-icons:hp"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="bi:nvidia"></iconify-icon></div>
+                    <div class="slide"><iconify-icon icon="simple-icons:sony"></iconify-icon></div>
+                </div>
+            </div>
+        </div>
+        <!-- Brand Slider -->
+
+        <!-- Top rating product -->
+        <div class="w-dvw h-dvh relative flex flex-col items-center justify-center">
+            <div class="w-10/12">
+                <div class="flex gap-4">
+                    <div class="flex flex-col justify-center w-6/12">
+                        <div class="text-xl font-bold mb-3" id="latestTitle"></div> <!--Product Title-->
+                        <div>
+                            <ul class="text-sm list-disc pl-8" id="latestProductFeatures"></ul>
+                        </div> <!--Product Description-->
+                        <div class="mt-4">
+                            <div class="font-semibold text-lg" id="latestPrice"></div>
+                            <button class="purple-shadow-btn my-6 px-6 py-3 rounded hover:scale-105 transition duration-500">Buy Now</button>
+                        </div>
+                    </div> <!-- Details Side -->
+                    <div class="flex w-6/12">
+                        <div class="w-9/12">
+                            <img src="img/Product/Top Product (1).png" style="max-width: 80%; max-height: 80%; object-fit: contain;" alt="" id="imgViewer"/>
+                        </div>
+                        <!--Main image container-->
+                        <div class="flex flex-col justify-center w-2/12" id="productImageContainer">
+                            <img src="img/Product/Top Product (1).png" alt="" class="cursor-pointer"
+                                 onclick="changeTopProductImg(this);" id="productImageSlide"/>
+                            <img src="img/Product/Top Product (2).png" alt="" class="cursor-pointer"
+                                 onclick="changeTopProductImg(this);" />
+                            <img src="img/Product/Top Product (3).png" alt="" class="cursor-pointer"
+                                 onclick="changeTopProductImg(this);" />
+                            <img src="img/Product/Top Product (4).png" alt="" class="cursor-pointer"
+                                 onclick="changeTopProductImg(this);" />
+                            <img src="img/Product/Top Product (5).png" alt="" class="cursor-pointer"
+                                 onclick="changeTopProductImg(this);" />
+                        </div> <!--Sub image container-->
+                    </div> <!-- Image Side -->
+                </div> <!--Product Details-->
+                <div class="flex gap-20 mt-6">
+                    <div class="flex items-center gap-4">
+                        <iconify-icon icon="carbon:delivery" class="text-4xl"></iconify-icon>
+                        <div class="">
+                            <div class="text-lg font-semibold">Free Shipping</div>
+                            <div class="text-sm">Until 14 Aug, 2024</div>
+                        </div>
+                    </div> <!--Delivery Service-->
+                    <div class="flex items-center gap-4">
+                        <iconify-icon icon="carbon:ibm-data-product-exchange" class="text-4xl"></iconify-icon>
+                        <div class="">
+                            <div class="text-lg font-semibold">Return for Refund</div>
+                            <div class="text-sm">Withing 14 days</div>
+                        </div>
+                    </div> <!--Return-->
+                    <div class="flex items-center gap-4">
+                        <iconify-icon icon="token:trust" class="text-4xl"></iconify-icon>
+                        <div class="">
+                            <div class="text-lg font-semibold">1-Year Warranty</div>
+                            <div class="text-sm">Based on purchase date</div>
+                        </div>
+                    </div> <!--Warranty-->
+                </div> <!-- features -->
+            </div>
+        </div>
+        <!-- Top rating product -->
+
+        <!-- Product Listing -->
+        <div class="w-dvw relative flex gap-10 flex-col items-center justify-center">
+
+            <div class="w-10/12">
+                <div class="flex items-center justify-between w-full gap-3 mb-3">
+                    <button
+                        class="border border-1 text-xl border-indigo-700 text-indigo-700 hover:bg-indigo-700 hover:text-white transition duration-400 text-white px-4 py-1 rounded text-white"
+                        id="productNext1" onclick="sliderAction('productSliderTrack1', 'left', '1');">
+                        <iconify-icon icon="solar:arrow-left-broken"></iconify-icon>
+                    </button>
+                    <span class="text-2xl font-bold text-pink-600">Latest Products</span>
+                    <button
+                        class="border border-1 text-xl border-indigo-700 text-indigo-700 hover:bg-indigo-700 hover:text-white transition duration-400 text-white px-4 py-1 rounded text-white"
+                        id="productBack1" onclick="sliderAction('productSliderTrack1', 'right', '1');">
+                        <iconify-icon icon="solar:arrow-right-broken"></iconify-icon>
+                    </button>
+                </div>
+
+                <div class="overflow-hidden">
+                    <div class="flex" id="productSliderTrack1">
+
+                        <!-- Repeating Slide -->
+                        <div id="productSlide"
+                             class="product-slide relative overflow-hidden rounded-lg" style="background-image: linear-gradient(#1308a0, #0e049c, #110b67);">
+                            <div class="absolute top-0 left-0 w-full h-3/5"
+                                 style="clip-path: polygon(0 0, 100% 0, 100% 59%, 0% 100%); background-image: linear-gradient(#1308a0, #0e049c, #110b67);"></div>
+                            <div class="blur-background h-3/6"
+                                 style="background-image: url('img/LatestProducts/Product (2).png');" id="blurBackground">
+                            </div>
+                            <div class="relative z-10 h-full">
+                                <iconify-icon icon="iconoir:add-to-cart"
+                                              id="addToCart"
+                                              class="text-white absolute right-0 top-0 m-3 text-lg cursor-pointer transition duration-500 hover:scale-125"></iconify-icon>
+                                <div class="flex justify-center items-center p-2 h-3/6">
+                                    <img src="img/LatestProducts/Product (2).png" class="slider-img" id="productImage"/>
+                                </div>
+                                <div class="flex flex-col text-white mt-2">
+                                    <div class="text-left bg-pink-700 py-1 px-3 pr-6 w-fit"
+                                         style="border-radius: 0px 50px 50px 0;" id="productPrice"></div>
+                                    <div class="text-lg font-semibold p-2 two-line" id="productTitle" title=""></div>
+                                    <div class="text-sm p-2 text-center">
+                                        <hr/>
+                                        <button class="purple-shadow-btn my-6 px-6 py-3 rounded hover:scale-105 transition duration-500" id="productRead">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Repeating Slide -->                                           
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Product Listing -->
+
+        <!-- Our services -->
+        <div class="w-dvw h-dvh relative flex flex-col items-center justify-center">
+            <div class=""><span class="text-2xl font-bold text-pink-600">Our Services</span></div>
+            <div class="service-grid grid grid-cols-2 gap-y-2 gap-x-4 mt-4">
+                <div class="service-card border bottom-1 p-1 rounded flex">
+                    <div class="flex justify-center items-center p-4">
+                        <iconify-icon class="text-4xl" icon="carbon:delivery"></iconify-icon>
+                    </div>
+                    <span class="devider border"></span>
+                    <div class="flex flex-col p-3">
+                        <div class="text-lg font-semibold">Fast and Reliable Delivery</div>
+                        <div class="text-sm">Enjoy swift and secure delivery right to your doorstep. Wherever you are, we ensure your order arrives safely and on time.</div>
+                    </div>
+                </div>
+                <div class="service-card border bottom-1 p-1 rounded flex">
+                    <div class="flex justify-center items-center p-4">
+                        <iconify-icon class="text-4xl" icon="mingcute:time-line"></iconify-icon>
+                    </div>
+                    <span class="devider border"></span>
+                    <div class="flex flex-col p-3">
+                        <div class="text-lg font-semibold">Always Here to Help</div>
+                        <div class="text-sm">Our dedicated customer support team is available 24/7 to assist you with any inquiries or issues. We're just a call or message away, any time of the day.</div>
+                    </div>
+                </div>
+                <div class="service-card border bottom-1 p-1 rounded flex">
+                    <div class="flex justify-center items-center p-4">
+                        <iconify-icon class="text-4xl" icon="carbon:ibm-data-product-exchange"></iconify-icon>
+                    </div>
+                    <span class="devider border"></span>
+                    <div class="flex flex-col p-3">
+                        <div class="text-lg font-semibold">Hassle-Free Returns</div>
+                        <div class="text-sm">Not satisfied with your purchase? No worries! Our easy return policy allows you to return products within the specified time frame for a smooth, stress-free process.</div>
+                    </div>
+                </div>
+                <div class="service-card border bottom-1 p-1 rounded flex">
+                    <div class="flex justify-center items-center p-4">
+                        <iconify-icon class="text-4xl" icon="token:trust"></iconify-icon>
+                    </div>
+                    <span class="devider border"></span>
+                    <div class="flex flex-col p-3">
+                        <div class="text-lg font-semibold">Guaranteed Quality with Warranty</div>
+                        <div class="text-sm">All our products come with a manufacturer’s warranty, ensuring your peace of mind. If anything goes wrong, we’re here to make it right!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Our services -->
+
+
+        <footer class="flex flex-col items-center">
+            <div class="w-10/12 flex flex-col items-center border">
+                <div class="text-xl font-bold py-2">TechMart</div>
+                <div class="icon-container flex gap-2">
+                    <i class="fi fi-brands-facebook"></i>
+                    <i class="fi fi-brands-twitter-alt-circle"></i>
+                    <i class="fi fi-brands-linkedin"></i>
+                    <i class="fi fi-brands-instagram"></i>
+                    <i class="fi fi-brands-youtube"></i>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="border bg-gray-500" style="width: 30px; height: 3px; border-radius: 1.5px;"></span>
+                    <div class="text-sm">Follow Us</div>
+                    <span class="border bg-gray-500" style="width: 30px; height: 3px; border-radius: 1.5px;"></span>
+                </div>
+            </div>
+            <div class="pt-4 w-full flex flex-col items-center">
+                <div class="w-6/12 flex flex-col items-center">
+                    <span class="text-xl font-bold text-center w-full pb-2">Subscribe Our Newsletter</span>
+                    <div class="w-full border relative flex items-center">
+                        <input type="text" class="p-2 text-sm outline-none border-none w-full bg-transparent"
+                               placeholder="Johndoe@gmail.com" />
+                        <div class="flex justify-center items-center pr-2">
+                            <i class="fi fi-sr-paper-plane-top" style="width: 16px; height: 16px;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-between px-4 pt-4 w-6/12">
+                <div class="">
+                    <span class="text-base font-semibold">Popular Pages</span>
+                    <div class="text-sm flex flex-col pt-2 gap-1">
+                        <a href="">Products</a>
+                        <a href="">News & Offers</a>
+                        <a href="">New Arrivals</a>
+                        <a href="">About Us</a>
+                    </div>
+                </div>
+                <div class="">
+                    <span class="text-base font-semibold">Contact Us</span>
+                    <div class="flex flex-col text-sm pt-2 gap-1">
+                        <div class="flex gap-2 items-center">
+                            <i class="fi fi-rs-phone-call"></i>
+                            <span>+94719892932</span>
+                        </div>
+                        <div class="flex gap-2 items-center">
+                            <i class="fi fi-rr-marker"></i>
+                            <span>No: 00 city. Street</span>
+                        </div>
+                        <div class="flex gap-2 items-center">
+                            <i class="fi fi-rr-envelope"></i>
+                            <span>customerservice@techmart.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+        <script>
+                            const video = document.getElementById('myVideo');
+                            const volumeControl = document.getElementById('volumeControl');
+
+                            // Set initial volume based on the range input
+                            video.volume = volumeControl.value;
+
+                            // Add event listener to the range input
+                            volumeControl.addEventListener('input', function () {
+                                video.volume = this.value;
+                            });
+
+                            function speaker(status) {
+                                if (status) {
+                                    document.getElementById("mute").classList.remove("hidden");
+                                    document.getElementById("mute").classList.add("block");
+                                    document.getElementById("unmute").classList.add("hidden");
+                                    video.muted = true;
+                                } else {
+                                    document.getElementById("unmute").classList.remove("hidden");
+                                    document.getElementById("unmute").classList.add("block");
+                                    document.getElementById("mute").classList.add("hidden");
+                                    video.muted = false;
+                                }
+                            }
+
+                            function playVideo(element) {
+                                element.classList.add("hidden");
+                                video.play();
+                            }
+        </script>
+
+    </body>
+
+</html>

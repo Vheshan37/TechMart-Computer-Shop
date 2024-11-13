@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cart</title>
+
+        <!-- CSS Links -->
+        <!--<link rel="stylesheet" href="css/product.css" />-->
+        <link rel="stylesheet" href="css/default.css" />
+        <link rel="stylesheet" href="css/cart.css" />
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-straight/css/uicons-thin-straight.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-thin-rounded/css/uicons-thin-rounded.css'>
+
+        <!-- JS Links -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    </head>
+
+    <body class="cursor-default w-dvw overflow-x-hidden background-color" onload="cartOnLoad();">
+
+
+
+        <div id="preloader" class="fixed inset-0 flex items-center justify-center bg-gray-900" style="z-index: 111">
+            <div class="preloader-container relative">
+                <div class="flex items-center justify-center">
+                    <div class="loader-circle w-24 h-24 border-t-4 border-blue-500 rounded-full animate-spin"></div>
+                </div>
+                <div class="absolute text-center w-full top-32">
+                    <p class="text-lg text-gray-300 tracking-widest font-bold">Loading</p>
+                    <div class="dots text-lg text-blue-500 font-semibold mt-2">• • •</div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Navigation Menu -->
+        <div class="w-full flex justify-center sticky top-4 z-20" id="navigationMenu"></div>
+        <!-- Navigation Menu -->
+
+        <div class="w-dvw h-dvh flex flex-col items-center justify-center empty-cart-container hidden" id="emptyCart">
+            <div class="empty-cart">
+                <iconify-icon class="empty-cart-icon" icon="mdi:laptop-off"></iconify-icon> <!-- Laptop Icon -->
+                <h1>Your Cart is Empty</h1>
+                <p>Looks like you haven’t added any items yet...</p>
+                <button class="btn-primary" onclick="window.location.href = 'index.html';">
+                    <iconify-icon icon="mdi:shopping"></iconify-icon> Continue Shopping
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Section -->
+        <div class="w-dvw relative flex flex-col pt-20 mb-20 items-center" id="mainContent">
+
+            <div class="p-1 pb-4 w-10/12">
+                <div class="breadcrumb flex items-center gap-2 text-gray-400">
+                    <a href="index.html"><iconify-icon class="cursor-pointer" icon="ic:round-home"></iconify-icon></a>
+                    <iconify-icon icon="mingcute:right-line"></iconify-icon>
+                    <a href="index.html"><span class="cursor-pointer">Cart</span></a>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4 pt-4 w-9/12" id="cartItemContainer">
+
+                <!-- Single Item -->
+                <div class="flex gap-4 rounded cursor-pointer" style="height: min-content;" id="cartCloneItem">
+                    <div class="relative w-3/12">
+                        <!-- Image side -->
+                        <img src="img/Product/Top Product (1).png" alt=""
+                             style="object-fit: contain; filter: blur(50px); z-index: -1;" class="absolute top-0 left-0" id="cartBlurImage"/>
+                        <img src="img/Product/Top Product (1).png" alt="" style="object-fit: contain;" id="cartImage"/>
+                    </div>
+                    <div class="flex flex-col w-9/12">
+                        <div class="text-lg" id="cartTitle">HP Pavilion x360 - 14-inch Convertible Laptop</div>
+                        <div class="text-sm text-slate-400" id="cartPrice">$ 3650 | <span class="text-red-600">$3860</span> (10%)</div>
+                        <div>
+                            <div class="flex text-sm items-center text-slate-400">
+                                <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                <iconify-icon icon="prime:star-fill"></iconify-icon>
+                                <span class="ml-2">(4.5/5) - 365 Reviews</span>
+                            </div>
+                        </div>
+                        <div class="w-full flex justify-between pr-6 pt-2 text-sm items-end border-b pb-2 border-gray-400">
+                            <div>
+                                <div class="pb-1">Quantity</div>
+                                <div
+                                    class="flex bg-slate-400 bg-opacity-30 text-white text-black items-center px-1 rounded-r-full rounded-l-full">
+                                    <i class="fi fi-br-minus-small cursor-pointer" style="width: 16px; height: 16px;" id="decreaseBtn"></i>
+                                    <input type="number" class="p-1 outline-none bg-transparent text-center" style="width: 50px;" id="quantityInput" value="1" disabled/>
+                                    <i class="fi fi-br-plus-small cursor-pointer" style="width: 16px; height: 16px;" id="increaseBtn"></i>
+                                </div>
+                            </div>
+                            <div class="text-gray-400" id="itemSubTotal"></div>
+                        </div>
+                        <div class="flex gap-2 pt-2">
+                            <button class="primary-btn" id="buyNow">Buy Now</button>
+                            <button class="delete-btn flex justify-center items-center" id="cartRemove"><i class="fi fi-rr-trash"
+                                                                                                           style="width: 16px; height: 16px;"></i></button>
+                        </div>
+
+                    </div>
+                </div>                
+
+            </div>
+        </div>
+        <!-- Main Section -->
+
+
+        <div class="flex flex-col items-center checkout-container fixed w-fit">
+            <div class="flex justify-end w-10/12">
+                <div class="text-white checkout flex items-center justify-between relative px-2 rounded text-center cursor-pointer" style="width: 450px">
+                    <span class="px-4">Checkout</span>
+                    <div class="circle flex justify-center items-center text-2xl absolute" style="left: 40%; transform: translateX(-50%)">
+                        <i class="fi fi-rr-cart-shopping-fast"></i>
+                    </div>
+                    <span class="px-4" id="cartTotal">0000.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
+
+        <script src="js/default.js"></script>
+        <script src="js/cart.js"></script>
+    </body>
+
+</html>

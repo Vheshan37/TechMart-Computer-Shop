@@ -1,0 +1,21 @@
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<nav class="flex justify-between bg-indigo-100 p-3 items-center bg-opacity-20 rounded-lg w-10/12 navigationMenu">
+    <div class="font-semibold cursor-pointer">TechMart</div>
+    <ul class="flex gap-5 font-light">
+        <li class="cursor-pointer"><a href="index.html">Home</a></li>
+        <li class="cursor-pointer"><a href="shop.html">Shop</a></li>
+        <li class="cursor-pointer"><a href="#">Laptops</a></li>
+        <li class="cursor-pointer"><a href="#">Desktops</a></li>
+        <li class="cursor-pointer"><a href="#">Accessories</a></li>
+        <li class="cursor-pointer"><a href="#">About Us</a></li>
+        <li class="cursor-pointer"><a href="#">Contact</a></li>
+    </ul>
+    <div class="font-semibold gap-3 flex text-lg">
+        <iconify-icon class="cursor-pointer" icon="ic:round-search"></iconify-icon>
+        <iconify-icon class="cursor-pointer" icon="iconoir:add-to-cart" onclick="goToCart();"></iconify-icon>
+        <iconify-icon class="cursor-pointer" icon="teenyicons:user-solid" onclick="goToProfile();"></iconify-icon>
+    </div>
+</nav>
+
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign In</title>
+        <link rel="stylesheet" href="css/default.css" />
+        <link rel="stylesheet" href="css/signin.css" />
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    </head>
+
+    <body class="h-dvh background-color">
+
+        <div class="bubble-container absolute top-0 left-0 w-full h-full">
+            <div class="bubble absolute"></div>
+            <div class="bubble absolute"></div>
+            <div class="bubble absolute"></div>
+        </div>
+
+        <div class="fixed top-0 left-0 bg-black bg-opacity-60 hidden" id="verificationModel" style="height: 100vh; width: 100vw; z-index: 10; backdrop-filter: blur(10px);">
+            <div class="absolute bg-white rounded bg-opacity-10 p-2" style="top: 10vh; backdrop-filter: blur(10px); width: 30%; left: 50%; transform: translateX(-50%);">
+                <div class="flex flex-col gap-1">
+                    <label>Verification Code</label>
+                    <input type="text" id="verificationInput"
+                           class="bg-transparent border-b border-slate-500 outline-none pl-1 text-sm">
+
+                    <div class="text-sm">Please check your email to retrieve the verification code.</div>
+
+                    <button class="bg-pink-700 px-8 py-2 self-center my-2" onclick="verifyAccount();">Verify</button>
+                    <button onclick="verificationClose();">Close</button>
+                </div>    
+            </div> 
+        </div>
+
+        <div class="absolute signInForm shadow-2xl rounded text-white">
+            <div class="text-lg pb-8 pt-2 font-semibold">Sign In</div>
+            <div class="text-base flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label>Email</label>
+                    <input type="text" id="email"
+                           class="bg-transparent border-b border-slate-500 outline-none pl-1 text-sm">
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label>Password</label>
+                    <input type="text"  id="password"
+                           class="bg-transparent border-b border-slate-400 outline-none pl-1 text-sm">
+                </div>
+                <div class="flex justify-between pt-2 text-sm font-semibold">
+                    <div>
+                        <input type="checkbox" id="rememberMe" class="bg-transparent">
+                        <label>Remember Me</label>
+                    </div>
+                    <div>
+                        <span class="text-red-600">Forgot Password?</span>
+                    </div>
+                </div>
+
+                <button class="btn px-8 py-2 self-center my-2" onclick="signIn();">Sign In</button>
+
+                <a href="sign-up.html" class="text-center text-base"><span class="text-purple-600">Don't have an account?</span> Register Now</a>
+            </div>
+        </div>
+
+
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+        <script src="js/default.js"></script>
+        <script src="js/sign-in.js"></script>
+    </body>
+
+</html>
