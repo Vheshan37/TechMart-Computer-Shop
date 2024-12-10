@@ -61,6 +61,7 @@ public class SignUp extends HttpServlet {
                 user.setMobile(requestUser.getMobile());
                 user.setEmail(requestUser.getEmail());
                 user.setPassword(requestUser.getPassword());
+                user.setVerification("false");
 
                 session.save(user);
                 session.beginTransaction().commit();
