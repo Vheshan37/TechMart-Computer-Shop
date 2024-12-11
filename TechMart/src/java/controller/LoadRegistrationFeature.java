@@ -71,9 +71,8 @@ public class LoadRegistrationFeature extends HttpServlet {
 
         session.close();
 
-        resp.setContentType("application.json");
+        resp.setContentType("application/json");
         resp.getWriter().write(gson.toJson(jsonObject));
-
     }
 
 }

@@ -34,6 +34,12 @@ function loadFeaturesByCategory(categoryId, categoryFeatureList) {
     loadSelectItems("featureSelector", featureList, ["id", "feature"]);
 }
 
+function loadBrandsByCategory(categoryId, categoryBrandList) {
+    const filteredbrands = categoryBrandList.filter(item => item.category.id == categoryId);
+    const brandList = filteredbrands.map(item => item.brand);
+    loadSelectItems("brandSelector", brandList, ["id", "brand"]);
+}
+
 async function loadProductFeatures() {
 
     const Toast = Swal.mixin({
@@ -60,6 +66,11 @@ async function loadProductFeatures() {
         document.getElementById("categorySelector").addEventListener("change", function () {
             const selectedCategoryId = this.value;
             loadFeaturesByCategory(selectedCategoryId, json.categoryFeatureList);
+        });
+        
+        document.getElementById("categorySelector").addEventListener("change", function () {
+            const selectedCategoryId = this.value;
+            loadBrandsByCategory(selectedCategoryId, json.categoryBrandList);
         });
 
     } else {
