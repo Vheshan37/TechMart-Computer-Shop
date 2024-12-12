@@ -75,4 +75,12 @@ public class Address implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 }
