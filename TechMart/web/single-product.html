@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="buy-now-btn text-white p-2 flex mt-6 rounded px-6 hover:scale-105" style="width: fit-content;">Buy
+                        <button class="buy-now-btn text-white p-2 flex mt-6 rounded px-6 hover:scale-105" style="width: fit-content;" type="submit" id="payhere-payment">Buy
                             Now</button>
                     </div>
                     <!--Details Side-->
@@ -400,12 +400,11 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.0/dist/sweetalert2.all.min.js"></script>
         <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
-        <script>
-                        hash = to_upper_case(md5(merchant_id + order_id + amount + currency + to_upper_case(md5(merchant_secret))))
-        </script>
-
         <script src="js/default.js"></script>
         <script src="js/product.js"></script>
+        <script type="module" src="js/payhere-payment.js"></script>
+        
+        <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>        
     </body>
 
 </html>
