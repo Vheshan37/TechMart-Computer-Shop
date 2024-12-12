@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    loadNavigationMenu();
+    loadDefaultComponents();
 });
 
 function changeTopProductImg(evt) {
@@ -8,13 +8,20 @@ function changeTopProductImg(evt) {
 }
 
 
-async function loadNavigationMenu() {
+async function loadDefaultComponents() {
     const navigationContainer = document.getElementById("navigationMenu");
+    const footerContainer = document.getElementById("footerContainer");
 
-    const response = await fetch("components/navigation-menu.html");
-    if (response.ok) {
-        const navigationMenu = await response.text();
-        navigationContainer.innerHTML = navigationMenu;
+    const navigationResponse = await fetch("components/navigation-menu.html");
+    if (navigationResponse.ok) {
+        const navigationContent = await navigationResponse.text();
+        navigationContainer.innerHTML = navigationContent;
+    }
+    
+    const footerResponse = await fetch("components/footer.html");
+    if (footerResponse.ok) {
+        const footerContent = await footerResponse.text();
+        footerContainer.innerHTML = footerContent;
     }
 }
 
