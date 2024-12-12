@@ -58,7 +58,6 @@ async function loadProductFeatures() {
     if (response.ok) {
         const json = await response.json();
         loadSelectItems("categorySelector", json.categoryList, ["id", "category"]);
-        loadSelectItems("brandSelector", json.brandList, ["id", "brand"]);
         loadSelectItems("colorSelector", json.colorList, ["id", "color"]);
         loadSelectItems("districtSelector", json.districtList, ["id", "district"]);
 
