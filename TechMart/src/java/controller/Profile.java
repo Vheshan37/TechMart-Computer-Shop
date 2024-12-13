@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
 import model.dto.User_DTO;
 import model.entity.Address;
+import model.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -30,7 +31,12 @@ public class Profile extends HttpServlet {
             if (req.getSession().getAttribute("tm_user") != null) {
 
                 User_DTO user = (User_DTO) req.getSession().getAttribute("tm_user");
-                responseObj.add("user", gson.toJsonTree(user));
+                int userId = user.getId();
+                
+                User db_user = (User) session.get(User.class, userId);
+                db_user.setPassword(null);
+                db_user.setVerification(null);
+                responseObj.add("user", gson.toJsonTree(db_user));
 
                 Criteria userAddressTable = session.createCriteria(Address.class);
                 userAddressTable.add(Restrictions.eq("user", user));
