@@ -8,18 +8,18 @@
         <property name="hibernate.connection.password">Vheshan37@37</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.show_sql">true</property>
+        <mapping class="model.entity.Address"/>
         <mapping class="model.entity.Brand"/>
         <mapping class="model.entity.Cart"/>
         <mapping class="model.entity.Category"/>
+        <mapping class="model.entity.CategoryHasBrand"/>
+        <mapping class="model.entity.City"/>
         <mapping class="model.entity.Color"/>
         <mapping class="model.entity.District"/>
         <mapping class="model.entity.Feature"/>
-        <mapping class="model.entity.User"/>
-        
-        <mapping class="model.entity.CategoryHasBrand"/>
-        <mapping class="model.entity.ProductHasFeatureList"/>
         <mapping class="model.entity.FeatureList"/>
-        
         <mapping class="model.entity.Product"/>
+        <mapping class="model.entity.ProductHasFeatureList"/>
+        <mapping class="model.entity.User"/>
     </session-factory>
 </hibernate-configuration>
