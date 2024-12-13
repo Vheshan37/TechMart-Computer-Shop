@@ -22,7 +22,10 @@ async function updateProfile() {
 
         if (response.ok) {
             const result = await response.json();
-            console.log("Profile updated successfully:", result);
+            if (result.status == "success") {
+                alert("Profile Updated");
+                window.location.reload();
+            }
         } else {
             console.error("Failed to update profile:", response.statusText);
         }
