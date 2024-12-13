@@ -1,129 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechMart</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/default.css" />
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TechMart</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="css/default.css" />
 
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-brands/css/uicons-brands.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-brands/css/uicons-brands.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-straight/css/uicons-regular-straight.css'>
 
-    <script src="js/index.js"></script>
-    <script src="js/default.js"></script>
-</head>
+        <script src="js/index.js"></script>
+        <script src="js/default.js"></script>
+    </head>
 
-<body class="cursor-default w-dvw background-color bg-no-repeat">
+    <body class="cursor-default w-dvw background-color bg-no-repeat">
 
-    <div class="w-dvw h-dvh overflow-hidden">
-        <div class="flex h-dvh overflow-hidden">
-            <div class="text-center flex flex-col items-center w-3/12" style="background-color: #001A38;">
-                <img src="https://placehold.co/400x400" style="clip-path: circle(); max-width: 150px;">
-                <div class="">TechMart</div>
-                <div class="w-full border-b border-white border-opacity-30 my-4"></div>
-                <ul class="flex w-full flex-col gap-2 px-4">
-                    <a href="seller-panel.html"><li class="bg-white bg-opacity-5 rounded py-3 cursor-pointer hover:bg-opacity-10"> Dashboard </li></a>
-                    <a href="product-home.html"><li class="bg-white bg-opacity-5 rounded py-3 cursor-pointer hover:bg-opacity-10"> Product </li></a>
-                    <a href="seller-order.html"><li class="bg-white bg-opacity-5 rounded py-3 cursor-pointer hover:bg-opacity-10"> Orders</li></a>
-                </ul>
-            </div>
-            <div class="w-9/12 flex flex-col" style="background-color: #04162C;">
-                <div class="flex justify-between w-full px-4 py-2" style="background-color: #001A38;">
-                    <div class=""><iconify-icon icon="ic:round-menu"></iconify-icon></div>
-                    <div class="">Seller Panel</div>
-                    <div class="">Profile</div>
+        <div class="w-dvw h-dvh overflow-hidden">
+            <div class="flex h-dvh overflow-hidden">
+                <div class="text-center flex flex-col items-center w-3/12" style="background-color: #001A38;">
+                    <img src="https://placehold.co/400x400" style="clip-path: circle(); max-width: 150px;">
+                    <div class="">TechMart</div>
+                    <div class="w-full border-b border-white border-opacity-30 my-4"></div>
+                    <ul class="flex w-full flex-col gap-2 px-4">
+                        <a href="seller-panel.html"><li class="bg-white bg-opacity-5 rounded py-3 cursor-pointer hover:bg-opacity-10"> Dashboard </li></a>
+                        <a href="product-home.html"><li class="bg-white bg-opacity-5 rounded py-3 cursor-pointer hover:bg-opacity-10"> Product </li></a>
+                        <a href="seller-order.html"><li class="bg-white bg-opacity-5 rounded py-3 cursor-pointer hover:bg-opacity-10"> Orders</li></a>
+                    </ul>
                 </div>
-                <div class="flex flex-grow gap-4 flex-col px-6 py-10" style="overflow-y: auto;">
-                    <!-- Main Content -->
-
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="col-span-2 grid grid-cols-2 gap-4">
-                            <div class="flex flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">First Name</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">First Name</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">Mobile</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                            <div class="flex col-span-2 flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">Email</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">Password</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                            <div class="flex flex-col col-start-1 gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">Address Line 1</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">Address Line 2</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">City</label>
-                                <select
-                                    class="bg-blue-700 bg-opacity-20 p-2 outline-none border-none rounded text-blue-500">
-                                    <option class="bg-blue-950 py-1">Select</option>
-                                </select>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="" class="text-base text-blue-800 font-semibold">Postal Code</label>
-                                <input type="text"
-                                    class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="" class="text-base text-blue-800 font-semibold">Profile Picture</label>
-                            <img src="img/girl_profile_picture.jpg" class="mix-blend-exclusion rounded cursor-pointer"
-                                style="height: 100%; object-fit: cover;" />
-                            <button
-                                class="p-2 border border-blue-700 bg-blue-700 bg-opacity-10 text-blue-600 hover:bg-opacity-100 hover:text-black transition duration-500 rounded outline-none">Change
-                                Updates</button>
-                        </div>
+                <div class="w-9/12 flex flex-col" style="background-color: #04162C;">
+                    <div class="flex justify-between w-full px-4 py-2" style="background-color: #001A38;">
+                        <div class=""><iconify-icon icon="ic:round-menu"></iconify-icon></div>
+                        <div class="">Seller Panel</div>
+                        <div class="">Profile</div>
                     </div>
+                    <div class="flex flex-grow gap-4 flex-col px-6 py-10" style="overflow-y: auto;">
+                        <!-- Main Content -->
 
-                    <!-- Main Content -->
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="col-span-2 grid grid-cols-2 gap-4">
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">First Name</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">First Name</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">Mobile</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                                <div class="flex col-span-2 flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">Email</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">Password</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                                <div class="flex flex-col col-start-1 gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">Address Line 1</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">Address Line 2</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">City</label>
+                                    <select
+                                        class="bg-blue-700 bg-opacity-20 p-2 outline-none border-none rounded text-blue-500">
+                                        <option class="bg-blue-950 py-1">Select</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="text-base text-blue-800 font-semibold">Postal Code</label>
+                                    <input type="text"
+                                           class="p-2 bg-blue-700 bg-opacity-20 text-blue-600 rounded outline-none" />
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="" class="text-base text-blue-800 font-semibold">Profile Picture</label>
+                                <img src="img/girl_profile_picture.jpg" class="mix-blend-exclusion rounded cursor-pointer"
+                                     style="height: 100%; object-fit: cover;" />
+                                <button
+                                    class="p-2 border border-blue-700 bg-blue-700 bg-opacity-10 text-blue-600 hover:bg-opacity-100 hover:text-black transition duration-500 rounded outline-none"
+                                    id="profile_change_btn"
+                                    >
+                                    Change Updates
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Main Content -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
-        integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
+                integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="chart.js"></script>
 
+        <script src="js/profile.js"></script>
 
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
-
-</body>
+    </body>
 
 </html>

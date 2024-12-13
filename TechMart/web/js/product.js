@@ -48,10 +48,8 @@ async function singleProductLoad() {
     if (response.ok) {
         const json = await response.json();
 
-
         const images = json.imageList;
         let imageCount = 1;
-
 
         let imageClone = document.getElementById("productImageSlide");
         document.getElementById("productImageContainer").innerHTML = "";
@@ -68,7 +66,13 @@ async function singleProductLoad() {
 
         document.getElementById("breadCrumbTitle").innerHTML = json.title;
         document.getElementById("productTitle").innerHTML = json.title;
-        document.getElementById("productPrice").innerHTML = "LKR. " + json.price.toLocaleString('en-US') + ".00";
+
+        if (json.login == true) {
+            document.getElementById("productPrice").innerHTML = "LKR. " + json.price.toLocaleString('en-US') + ".00 + LKR. " + json.delivery_cost.toLocaleString('en-US') + ".00";
+        } else {
+            document.getElementById("productPrice").innerHTML = "LKR. " + json.price.toLocaleString('en-US') + ".00";
+        }
+
         document.getElementById("productStock").innerHTML = json.stock + " items available";
 
         let similarClone = document.getElementById("similarProduct");

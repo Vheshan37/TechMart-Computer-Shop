@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
+import model.dto.User_DTO;
+import model.entity.Address;
 import model.entity.CategoryHasBrand;
 import model.entity.Product;
 import model.entity.ProductHasFeatureList;
@@ -85,6 +87,49 @@ public class ProductLoad extends HttpServlet {
         responseObject.add("featureList", gson.toJsonTree(featureListArray));
         responseObject.add("imageList", gson.toJsonTree(validFilePaths));
         responseObject.add("similarProductList", gson.toJsonTree(similarProductList));
+
+        responseObject.addProperty("login", false);
+        responseObject.addProperty("login_status", "Invalid user");
+        if (req.getSession().getAttribute("tm_user") != null) {
+
+            User_DTO user = (User_DTO) req.getSession().getAttribute("tm_user");
+            int userId = user.getId();
+
+            Criteria userAddressTable = session.createCriteria(Address.class);
+            userAddressTable.add(Restrictions.eq("user", user));
+
+            
+            if (!userAddressTable.list().isEmpty()) {
+                responseObject.addProperty("login", true);
+
+                Address userAddress = (Address) userAddressTable.uniqueResult();
+
+                if (product.getDistrict().getId() == userAddress.getCity().getDistrict().getId()) {
+                    responseObject.addProperty("delivery_cost", product.getDeliveryIn());
+                } else {
+                    responseObject.addProperty("delivery_cost", product.getDeliveryOut());
+                }
+
+                JsonObject payhereData = new JsonObject();
+                payhereData.addProperty("merchant_id", 1221196);
+                payhereData.addProperty("return_url", "index.html");
+                payhereData.addProperty("cancel_url", "index.html");
+                payhereData.addProperty("notify_url", "index.html");
+                payhereData.addProperty("first_name", user.getFirst_name());
+                payhereData.addProperty("last_name", user.getLast_name());
+                payhereData.addProperty("email", user.getEmail());
+                payhereData.addProperty("phone", user.getMobile());
+                payhereData.addProperty("address", userAddress.getLine1() + ", " + userAddress.getLine2() + ", " + userAddress.getCity().getCity() + ". [" + userAddress.getCity().getDistrict().getDistrict() + "]");
+                payhereData.addProperty("city", userAddress.getCity().getCity());
+                payhereData.addProperty("country", "Sri Lanka");
+                payhereData.addProperty("order_id", "");
+                payhereData.addProperty("items", title);
+                payhereData.addProperty("currency", "LKR");
+                payhereData.addProperty("amount", price);
+            }else{
+                responseObject.addProperty("login_status", "Incomplete profile details");
+            }
+        }
 
         session.close();
 
