@@ -18,6 +18,8 @@
         <mapping class="model.entity.District"/>
         <mapping class="model.entity.Feature"/>
         <mapping class="model.entity.FeatureList"/>
+        <mapping class="model.entity.Order"/>
+        <mapping class="model.entity.OrderItem"/>
         <mapping class="model.entity.Product"/>
         <mapping class="model.entity.ProductHasFeatureList"/>
         <mapping class="model.entity.User"/>

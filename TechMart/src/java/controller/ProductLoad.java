@@ -18,6 +18,7 @@ import model.entity.Address;
 import model.entity.CategoryHasBrand;
 import model.entity.Product;
 import model.entity.ProductHasFeatureList;
+import model.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -89,16 +90,15 @@ public class ProductLoad extends HttpServlet {
         responseObject.add("similarProductList", gson.toJsonTree(similarProductList));
 
         responseObject.addProperty("login", false);
-        responseObject.addProperty("login_status", "Invalid user");
         if (req.getSession().getAttribute("tm_user") != null) {
 
             User_DTO user = (User_DTO) req.getSession().getAttribute("tm_user");
             int userId = user.getId();
+            User db_user = (User) session.get(User.class, userId);
 
             Criteria userAddressTable = session.createCriteria(Address.class);
-            userAddressTable.add(Restrictions.eq("user", user));
+            userAddressTable.add(Restrictions.eq("user", db_user));
 
-            
             if (!userAddressTable.list().isEmpty()) {
                 responseObject.addProperty("login", true);
 
@@ -109,6 +109,8 @@ public class ProductLoad extends HttpServlet {
                 } else {
                     responseObject.addProperty("delivery_cost", product.getDeliveryOut());
                 }
+                
+                
 
                 JsonObject payhereData = new JsonObject();
                 payhereData.addProperty("merchant_id", 1221196);
@@ -126,9 +128,12 @@ public class ProductLoad extends HttpServlet {
                 payhereData.addProperty("items", title);
                 payhereData.addProperty("currency", "LKR");
                 payhereData.addProperty("amount", price);
-            }else{
+                
+            } else {
                 responseObject.addProperty("login_status", "Incomplete profile details");
             }
+        } else {
+            responseObject.addProperty("login_status", "Invalid user");
         }
 
         session.close();

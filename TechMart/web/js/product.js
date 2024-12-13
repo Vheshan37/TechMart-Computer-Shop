@@ -68,7 +68,7 @@ async function singleProductLoad() {
         document.getElementById("productTitle").innerHTML = json.title;
 
         if (json.login == true) {
-            document.getElementById("productPrice").innerHTML = "LKR. " + json.price.toLocaleString('en-US') + ".00 + LKR. " + json.delivery_cost.toLocaleString('en-US') + ".00";
+            document.getElementById("productPrice").innerHTML = "LKR. " + json.price.toLocaleString('en-US') + ".00 + " + json.delivery_cost.toLocaleString('en-US') + ".00";
         } else {
             document.getElementById("productPrice").innerHTML = "LKR. " + json.price.toLocaleString('en-US') + ".00";
         }
