@@ -44,7 +44,7 @@ public class Profile extends HttpServlet {
                 responseObj.add("user", gson.toJsonTree(db_user));
 
                 Criteria userAddressTable = session.createCriteria(Address.class);
-                userAddressTable.add(Restrictions.eq("user", user));
+                userAddressTable.add(Restrictions.eq("user", db_user));
 
                 if (!userAddressTable.list().isEmpty()) {
                     Address address = (Address) userAddressTable.uniqueResult();
