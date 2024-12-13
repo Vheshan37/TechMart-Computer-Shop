@@ -29,8 +29,8 @@ public class Profile extends HttpServlet {
 
         String action = req.getParameter("action");
         JsonObject responseObj = new JsonObject();
-        responseObj.add("cityList", gson.toJsonTree(getCities(session)));
-        responseObj.add("districtList", gson.toJsonTree(getDistricts(session)));
+//        responseObj.add("cityList", gson.toJsonTree(getCities(session)));
+//        responseObj.add("districtList", gson.toJsonTree(getDistricts(session)));
         if (action.equals("get")) {
 
             if (req.getSession().getAttribute("tm_user") != null) {

@@ -9,15 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
 async function getProfileDetails() {
     const response = await fetch("Profile?action=get");
     if (response.ok) {
-        console.log(response);
+//        console.log(response);
         const json = await response.json();
         document.getElementById("first_name").value = json.user.first_name;
         document.getElementById("last_name").value = json.user.last_name;
         document.getElementById("mobile").value = json.user.mobile;
         document.getElementById("email").value = json.user.email;
-        document.getElementById("line1").value = json.address?.line1;
-        document.getElementById("line2").value = json.address?.line2;
-        document.getElementById("postal_code").value = json.address?.postalCode;
+        document.getElementById("line1").value = json.address?.line1 || "";
+        document.getElementById("line2").value = json.address?.line2 || "";
+        document.getElementById("postal_code").value = json.address?.postalCode || "";
+
 
         loadSelectItems("districtSelector", json.districtList, ["id", "district"], "default");
 //        loadSelectItems("citySelector", json.cityList, ["id", "city"]);
@@ -52,7 +53,12 @@ function loadSelectItems(selector, list, propertyArray, method) {
 }
 
 function loadCitiesByDistrict(districtId, cityList) {
-    const filteredCity = cityList.filter(item => item.district.id == districtId);
-    const cities = filteredCity.map(item => item.city);
-    loadSelectItems("citySelector", cities, ["id", "city"]);
+
+    const filteredCities = cityList.filter(item => item.district.id == districtId);
+    const cityData = filteredCities.map(item => ({
+            id: item.id,
+            city: item.city
+        }));
+    console.log(JSON.stringify(cityData));
+    loadSelectItems("citySelector", cityData, ["id", "city"]);
 }
