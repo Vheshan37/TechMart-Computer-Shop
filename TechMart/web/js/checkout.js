@@ -22,10 +22,8 @@ const Toast = Swal.mixin({
     }
 });
 
-document.getElementById('payhere-payment').onclick = async function (e) {
-
-    const parameters = new URLSearchParams(window.location.search);
-    const response = await fetch("BuyNow?id=" + parameters.get("id"));
+async function checkout() {
+    const response = await fetch("Checkout");
 
     if (response.ok) {
         const json = await response.json();
@@ -35,13 +33,13 @@ document.getElementById('payhere-payment').onclick = async function (e) {
             Toast.fire({
                 timer: 3000,
                 icon: "warning",
-                title: "Unable to Process Payments: " + json.login_status
+                title: "Unable to Process Payments"
             });
         }
     } else {
         console.log("Response Error");
     }
-};
+}
 
 async function updatePayment(orderId) {
     const response = await fetch("UpdateOrder?id=" + orderId);
@@ -56,6 +54,7 @@ async function updatePayment(orderId) {
     } else {
         console.log("Response Error");
     }
+
     Toast.fire({
         timer: 3000,
         icon: "success",

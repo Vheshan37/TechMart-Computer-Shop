@@ -31,14 +31,6 @@ document.getElementById('payhere-payment').onclick = async function (e) {
         const json = await response.json();
         if (json.payment_status) {
             payhere.startPayment(json.payhere_data);
-            updatePayment(json.payhere_data.order_id);
-            Toast.fire({
-                timer: 3000,
-                icon: "success",
-                title: "Payment Completed."
-            }).then(() => {
-                window.location.reload();
-            });
         } else {
             Toast.fire({
                 timer: 3000,
@@ -64,4 +56,11 @@ async function updatePayment(orderId) {
     } else {
         console.log("Response Error");
     }
+    Toast.fire({
+        timer: 3000,
+        icon: "success",
+        title: "Payment Completed."
+    }).then(() => {
+        window.location.reload();
+    });
 }
