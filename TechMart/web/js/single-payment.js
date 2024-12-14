@@ -40,15 +40,13 @@ document.getElementById('payhere-payment').onclick = async function (e) {
             "first_name": json.payhere_data.first_name,
             "last_name": json.payhere_data.last_name,
             "email": json.payhere_data.email,
-            "phone": "0771234567",
-            "address": "No.1, Galle Road",
-            "city": "Colombo",
+            "phone": json.user.mobile,
+            "address": json.payhere_data.address,
+            "city": json.payhere_data.city,
             "country": "Sri Lanka",
-            "delivery_address": "No. 46, Galle road, Kalutara South",
-            "delivery_city": "Kalutara",
+            "delivery_address": json.payhere_data.address,
+            "delivery_city": json.payhere_data.city,
             "delivery_country": "Sri Lanka",
-            "custom_1": "",
-            "custom_2": ""
         };
 
         payhere.startPayment(payment);
