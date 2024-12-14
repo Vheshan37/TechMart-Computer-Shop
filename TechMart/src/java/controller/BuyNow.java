@@ -45,6 +45,7 @@ public class BuyNow extends HttpServlet {
     }
 
     private void handleUserLogin(HttpServletRequest req, HttpServletResponse resp, Gson gson, JsonObject responseObject, Session session, Product product) throws IOException {
+        responseObject.addProperty("payment_status", false);
         if (req.getSession().getAttribute("tm_user") != null) {
             User_DTO userDTO = (User_DTO) req.getSession().getAttribute("tm_user");
             User user = getUserById(session, userDTO.getId());
@@ -52,6 +53,7 @@ public class BuyNow extends HttpServlet {
 
             Address userAddress = getUserAddress(session, user);
             if (userAddress != null) {
+                responseObject.addProperty("payment_status", true);
                 handleOrderAndPayment(session, product, userDTO, user, userAddress, responseObject);
             } else {
                 responseObject.addProperty("login_status", "Incomplete profile details");
@@ -81,7 +83,7 @@ public class BuyNow extends HttpServlet {
 
         OrderStatus orderStatus = getOrderStatus(session);
 
-        Order order = createOrder(session, user, orderStatus);
+        Order order = createOrder(session, user, orderStatus, product);
 
         responseObject.addProperty("orderID", order.getId());
 
@@ -110,12 +112,19 @@ public class BuyNow extends HttpServlet {
         return (OrderStatus) orderStatusCriteria.uniqueResult();
     }
 
-    private Order createOrder(Session session, User user, OrderStatus orderStatus) {
+    private Order createOrder(Session session, User user, OrderStatus orderStatus, Product product) {
         Order order = new Order();
         order.setDateTime(new Date());
         order.setUser(user);
         order.setStatus(orderStatus);
         session.save(order);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProduct(product);
+        orderItem.setQty(1);
+        orderItem.setOrder(order);
+        session.save(orderItem);
+
         return order;
     }
 

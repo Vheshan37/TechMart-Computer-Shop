@@ -11,17 +11,41 @@ payhere.onError = function onError(error) {
     console.log("Error:" + error);
 };
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+
 document.getElementById('payhere-payment').onclick = async function (e) {
+
     const parameters = new URLSearchParams(window.location.search);
     const response = await fetch("BuyNow?id=" + parameters.get("id"));
 
     if (response.ok) {
         const json = await response.json();
-        console.log(json.payhere_data);
-
-        payhere.startPayment(json.payhere_data);
-        
-        updatePayment(json.payhere_data.order_id);
+        if (json.payment_status) {
+            payhere.startPayment(json.payhere_data);
+            updatePayment(json.payhere_data.order_id);
+            Toast.fire({
+                timer: 3000,
+                icon: "success",
+                title: "Payment Completed."
+            }).then(() => {
+                window.location.reload();
+            });
+        } else {
+            Toast.fire({
+                timer: 3000,
+                icon: "warning",
+                title: "Unable to Process Payments : " + json.login_status
+            });
+        }
     } else {
         console.log("Response Error");
     }
