@@ -31,7 +31,7 @@ public class UpdateOrder extends HttpServlet {
         OrderStatus orderStatus = (OrderStatus) orderStatusTable.uniqueResult();
 
         String orderId = req.getParameter("id");
-        Order order = (Order) session.get(Order.class, orderId);
+        Order order = (Order) session.get(Order.class, Integer.parseInt(orderId));
         order.setStatus(orderStatus);
 
         session.update(order);

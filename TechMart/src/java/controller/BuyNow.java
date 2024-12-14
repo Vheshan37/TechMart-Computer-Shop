@@ -2,26 +2,22 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.DecimalFormat;
-import java.util.Date;
+import model.HibernateUtil;
+import model.PayHere;
+import model.dto.User_DTO;
+import model.entity.*;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.HibernateUtil;
-import model.PayHere;
-import model.dto.User_DTO;
-import model.entity.Address;
-import model.entity.Order;
-import model.entity.OrderStatus;
-import model.entity.Product;
-import model.entity.User;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Date;
 
 @WebServlet(name = "BuyNow", urlPatterns = {"/BuyNow"})
 public class BuyNow extends HttpServlet {
@@ -33,78 +29,30 @@ public class BuyNow extends HttpServlet {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         String productId = req.getParameter("id");
-        Product product = (Product) session.get(Product.class, Integer.valueOf(productId));
+        Product product = getProductById(session, productId);
 
-        responseObject.addProperty("login", false);
+        if (product == null) {
+            responseObject.addProperty("error", "Product not found");
+            returnResponse(resp, gson, responseObject);
+            return;
+        }
+
+        handleUserLogin(req, resp, gson, responseObject, session, product);
+    }
+
+    private Product getProductById(Session session, String productId) {
+        return (Product) session.get(Product.class, Integer.valueOf(productId));
+    }
+
+    private void handleUserLogin(HttpServletRequest req, HttpServletResponse resp, Gson gson, JsonObject responseObject, Session session, Product product) throws IOException {
         if (req.getSession().getAttribute("tm_user") != null) {
+            User_DTO userDTO = (User_DTO) req.getSession().getAttribute("tm_user");
+            User user = getUserById(session, userDTO.getId());
+            responseObject.add("user", gson.toJsonTree(user));
 
-            User_DTO user = (User_DTO) req.getSession().getAttribute("tm_user");
-            int userId = user.getId();
-            User db_user = (User) session.get(User.class, userId);
-            responseObject.add("user", gson.toJsonTree(db_user));
-
-            Criteria userAddressTable = session.createCriteria(Address.class);
-            userAddressTable.add(Restrictions.eq("user", db_user));
-
-            if (!userAddressTable.list().isEmpty()) {
-                responseObject.addProperty("login", true);
-
-                Address userAddress = (Address) userAddressTable.uniqueResult();
-
-                double product_cost = product.getPrice();
-
-                if (product.getDistrict().getId() == userAddress.getCity().getDistrict().getId()) {
-                    responseObject.addProperty("delivery_cost", product.getDeliveryIn());
-                    product_cost += product.getDeliveryIn();
-                } else {
-                    responseObject.addProperty("delivery_cost", product.getDeliveryOut());
-                    product_cost += product.getDeliveryOut();
-                }
-
-                // get order status
-                Criteria orderStatusTable = session.createCriteria(OrderStatus.class);
-                orderStatusTable.add(Restrictions.eq("status", "pending"));
-                OrderStatus orderStatus = (OrderStatus) orderStatusTable.uniqueResult();
-
-                // save order
-                Order order = new Order();
-                order.setDateTime(new Date());
-                order.setUser(db_user);
-                order.setStatus(orderStatus);
-                int orderId = (int) session.save(order);
-                responseObject.addProperty("orderID", orderId);
-
-                String formatedAmount = new DecimalFormat("0.00").format(product_cost);
-                String orderIDString = String.valueOf(orderId);
-                String currency = "LKR";
-                String merchantId = "1221196";
-                String hashCode = "NzcwNzM0NDkyNDA4NTQwMjkwNzE4MDM0NDA0MTE0MTM2OTA3OTk5";
-                String merchantSecret = PayHere.generateMD5(hashCode);
-
-                // set payhere object
-                JsonObject payhereData = new JsonObject();
-                payhereData.addProperty("merchant_id", merchantId);
-                payhereData.addProperty("sandbox", true);
-                payhereData.addProperty("return_url", "index.html");
-                payhereData.addProperty("cancel_url", "index.html");
-                payhereData.addProperty("notify_url", "index.html");
-                payhereData.addProperty("first_name", user.getFirst_name());
-                payhereData.addProperty("last_name", user.getLast_name());
-                payhereData.addProperty("email", user.getEmail());
-                payhereData.addProperty("phone", user.getMobile());
-                payhereData.addProperty("address", userAddress.getLine1() + ", " + userAddress.getLine2() + ", " + userAddress.getCity().getCity() + ". [" + userAddress.getCity().getDistrict().getDistrict() + "]");
-                payhereData.addProperty("city", userAddress.getCity().getCity());
-                payhereData.addProperty("country", "Sri Lanka");
-                payhereData.addProperty("order_id", orderIDString);
-                payhereData.addProperty("items", product.getTitle());
-                payhereData.addProperty("currency", currency);
-                payhereData.addProperty("amount", formatedAmount);
-
-                String md5Hash = PayHere.generateMD5(merchantId + orderIDString + formatedAmount + currency + merchantSecret);
-                payhereData.addProperty("hash", md5Hash);
-
-                responseObject.add("payhere_data", payhereData);
-                session.beginTransaction().commit();
+            Address userAddress = getUserAddress(session, user);
+            if (userAddress != null) {
+                handleOrderAndPayment(session, product, userDTO, user, userAddress, responseObject);
             } else {
                 responseObject.addProperty("login_status", "Incomplete profile details");
             }
@@ -112,8 +60,103 @@ public class BuyNow extends HttpServlet {
             responseObject.addProperty("login_status", "Invalid user");
         }
 
-        session.close();
+        returnResponse(resp, gson, responseObject);
+    }
 
+    private User getUserById(Session session, int userId) {
+        return (User) session.get(User.class, userId);
+    }
+
+    private Address getUserAddress(Session session, User user) {
+        Criteria userAddressCriteria = session.createCriteria(Address.class);
+        userAddressCriteria.add(Restrictions.eq("user", user));
+        return (Address) userAddressCriteria.uniqueResult();
+    }
+
+    private void handleOrderAndPayment(Session session, Product product, User_DTO userDTO, User user, Address userAddress, JsonObject responseObject) {
+        double productCost = product.getPrice();
+        double deliveryCost = getDeliveryCost(userAddress, product, responseObject);
+
+        productCost += deliveryCost;
+
+        OrderStatus orderStatus = getOrderStatus(session);
+
+        Order order = createOrder(session, user, orderStatus);
+
+        responseObject.addProperty("orderID", order.getId());
+
+        JsonObject payhereData = createPayhereData(userDTO, userAddress, product, productCost, order.getId());
+
+        responseObject.add("payhere_data", payhereData);
+
+        session.beginTransaction().commit();
+    }
+
+    private double getDeliveryCost(Address userAddress, Product product, JsonObject responseObject) {
+        double deliveryCost;
+        if (product.getDistrict().getId() == userAddress.getCity().getDistrict().getId()) {
+            deliveryCost = product.getDeliveryIn();
+            responseObject.addProperty("delivery_cost", deliveryCost);
+        } else {
+            deliveryCost = product.getDeliveryOut();
+            responseObject.addProperty("delivery_cost", deliveryCost);
+        }
+        return deliveryCost;
+    }
+
+    private OrderStatus getOrderStatus(Session session) {
+        Criteria orderStatusCriteria = session.createCriteria(OrderStatus.class);
+        orderStatusCriteria.add(Restrictions.eq("status", "pending"));
+        return (OrderStatus) orderStatusCriteria.uniqueResult();
+    }
+
+    private Order createOrder(Session session, User user, OrderStatus orderStatus) {
+        Order order = new Order();
+        order.setDateTime(new Date());
+        order.setUser(user);
+        order.setStatus(orderStatus);
+        session.save(order);
+        return order;
+    }
+
+    private JsonObject createPayhereData(User_DTO userDTO, Address userAddress, Product product, double productCost, int orderId) {
+        String formattedAmount = new DecimalFormat("0.00").format(productCost);
+        String orderIDString = String.valueOf(orderId);
+        String currency = "LKR";
+        String merchantId = "1221196";
+        String hashCode = "NzcwNzM0NDkyNDA4NTQwMjkwNzE4MDM0NDA0MTE0MTM2OTA3OTk5";
+        String merchantSecret = PayHere.generateMD5(hashCode);
+
+        String md5Hash = PayHere.generateMD5(merchantId + orderIDString + formattedAmount + currency + merchantSecret);
+
+        JsonObject payhereData = new JsonObject();
+        payhereData.addProperty("merchant_id", merchantId);
+        payhereData.addProperty("sandbox", true);
+        payhereData.addProperty("return_url", "index.html");
+        payhereData.addProperty("cancel_url", "index.html");
+        payhereData.addProperty("notify_url", "index.html");
+        payhereData.addProperty("first_name", userDTO.getFirst_name());
+        payhereData.addProperty("last_name", userDTO.getLast_name());
+        payhereData.addProperty("email", userDTO.getEmail());
+        payhereData.addProperty("phone", userDTO.getMobile());
+        payhereData.addProperty("address", getFullAddress(userAddress));
+        payhereData.addProperty("city", userAddress.getCity().getCity());
+        payhereData.addProperty("country", "Sri Lanka");
+        payhereData.addProperty("order_id", orderIDString);
+        payhereData.addProperty("items", product.getTitle());
+        payhereData.addProperty("currency", currency);
+        payhereData.addProperty("amount", formattedAmount);
+        payhereData.addProperty("hash", md5Hash);
+
+        return payhereData;
+    }
+
+    private String getFullAddress(Address userAddress) {
+        return userAddress.getLine1() + ", " + userAddress.getLine2() + ", " + userAddress.getCity().getCity()
+                + ". [" + userAddress.getCity().getDistrict().getDistrict() + "]";
+    }
+
+    private void returnResponse(HttpServletResponse resp, Gson gson, JsonObject responseObject) throws IOException {
         resp.setContentType("application/json");
         resp.getWriter().write(gson.toJson(responseObject));
     }

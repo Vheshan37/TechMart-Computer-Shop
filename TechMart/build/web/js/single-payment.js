@@ -1,11 +1,10 @@
-let orderID;
 payhere.onCompleted = function onCompleted(orderId) {
     console.log("Payment completed. OrderID:" + orderId);
     updatePayment(orderId);
 };
 
 payhere.onDismissed = function onDismissed() {
-    console.log("Payment dismissed. OrderID: " + orderID);
+    console.log("Payment dismissed");
 };
 
 payhere.onError = function onError(error) {
@@ -18,8 +17,11 @@ document.getElementById('payhere-payment').onclick = async function (e) {
 
     if (response.ok) {
         const json = await response.json();
-        orderID = json.payhere_data.orderID;
+        console.log(json.payhere_data);
+
         payhere.startPayment(json.payhere_data);
+        
+        updatePayment(json.payhere_data.order_id);
     } else {
         console.log("Response Error");
     }
@@ -31,9 +33,9 @@ async function updatePayment(orderId) {
         const json = await response.json();
         console.log(json);
         if (json.success) {
-            console.log("Success: TRUE")
+            console.log("Success: TRUE");
         } else {
-            console.log("Success: FALSE")
+            console.log("Success: FALSE");
         }
     } else {
         console.log("Response Error");
