@@ -27,6 +27,10 @@ public class Order implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "order_status_id")
+    private OrderStatus status;
+
     public Order() {
     }
 
@@ -52,6 +56,14 @@ public class Order implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
 }
