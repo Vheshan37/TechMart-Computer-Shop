@@ -41,7 +41,6 @@ public class BuyNow extends HttpServlet {
             User_DTO user = (User_DTO) req.getSession().getAttribute("tm_user");
             int userId = user.getId();
             User db_user = (User) session.get(User.class, userId);
-            db_user.setPassword(null);
             responseObject.add("user", gson.toJsonTree(db_user));
 
             Criteria userAddressTable = session.createCriteria(Address.class);
@@ -72,13 +71,19 @@ public class BuyNow extends HttpServlet {
                 order.setDateTime(new Date());
                 order.setUser(db_user);
                 order.setStatus(orderStatus);
-                int orderId = (int) session.save(orderStatus);
+                int orderId = (int) session.save(order);
+                responseObject.addProperty("orderID", orderId);
 
                 String formatedAmount = new DecimalFormat("0.00").format(product_cost);
+                String orderIDString = String.valueOf(orderId);
+                String currency = "LKR";
+                String merchantId = "1221196";
+                String hashCode = "NzcwNzM0NDkyNDA4NTQwMjkwNzE4MDM0NDA0MTE0MTM2OTA3OTk5";
+                String merchantSecret = PayHere.generateMD5(hashCode);
 
                 // set payhere object
                 JsonObject payhereData = new JsonObject();
-                payhereData.addProperty("merchant_id", "1221196");
+                payhereData.addProperty("merchant_id", merchantId);
                 payhereData.addProperty("sandbox", true);
                 payhereData.addProperty("return_url", "index.html");
                 payhereData.addProperty("cancel_url", "index.html");
@@ -90,15 +95,16 @@ public class BuyNow extends HttpServlet {
                 payhereData.addProperty("address", userAddress.getLine1() + ", " + userAddress.getLine2() + ", " + userAddress.getCity().getCity() + ". [" + userAddress.getCity().getDistrict().getDistrict() + "]");
                 payhereData.addProperty("city", userAddress.getCity().getCity());
                 payhereData.addProperty("country", "Sri Lanka");
-                payhereData.addProperty("order_id", orderId);
+                payhereData.addProperty("order_id", orderIDString);
                 payhereData.addProperty("items", product.getTitle());
-                payhereData.addProperty("currency", "LKR");
+                payhereData.addProperty("currency", currency);
                 payhereData.addProperty("amount", formatedAmount);
 
-                String md5Hash = PayHere.generateMD5("1221196" + orderId + formatedAmount + "LKR" + "NzcwNzM0NDkyNDA4NTQwMjkwNzE4MDM0NDA0MTE0MTM2OTA3OTk5");
+                String md5Hash = PayHere.generateMD5(merchantId + orderIDString + formatedAmount + currency + merchantSecret);
                 payhereData.addProperty("hash", md5Hash);
 
                 responseObject.add("payhere_data", payhereData);
+                session.beginTransaction().commit();
             } else {
                 responseObject.addProperty("login_status", "Incomplete profile details");
             }
