@@ -4,21 +4,21 @@ payhere.onCompleted = function onCompleted(orderId) {
 };
 
 payhere.onDismissed = function onDismissed() {
-    console.log("Payment dismissed");
+    console.log("Payment dismissed. OrderID: " + orderID);
 };
 
 payhere.onError = function onError(error) {
     console.log("Error:" + error);
 };
 
+var orderID;
 document.getElementById('payhere-payment').onclick = async function (e) {
     const parameters = new URLSearchParams(window.location.search);
     const response = await fetch("BuyNow?id=" + parameters.get("id"));
 
     if (response.ok) {
         const json = await response.json();
-        console.log(json.payhere_data);
-
+        orderID = json.payhere_data.orderID;
         payhere.startPayment(json.payhere_data);
     } else {
         console.log("Response Error");
