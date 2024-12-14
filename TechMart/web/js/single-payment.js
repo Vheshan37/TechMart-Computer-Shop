@@ -17,7 +17,14 @@ payhere.onError = function onError(error) {
 };
 
 // Show the payhere.js popup, when "PayHere Pay" is clicked
-document.getElementById('payhere-payment').onclick = function (e) {
+document.getElementById('payhere-payment').onclick = async function (e) {
+
+    const parameters = new URLSearchParams(window.location.search);
+    const response = await fetch("BuyNow?id=" + parameters.get("id"));
+
+    if (response.ok) {
+
+    }
 
     // Put the payment variables here
     var payment = {
