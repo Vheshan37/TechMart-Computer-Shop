@@ -45,7 +45,6 @@ public class SingleProductFilter implements Filter {
         } else {
             chain.doFilter(request, response);
         }
-
     }
 
     @Override

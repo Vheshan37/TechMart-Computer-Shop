@@ -19,6 +19,7 @@
         <mapping class="model.entity.Feature"/>
         <mapping class="model.entity.FeatureList"/>
         <mapping class="model.entity.Order"/>
+        <mapping class="model.entity.OrderStatus"/>
         <mapping class="model.entity.OrderItem"/>
         <mapping class="model.entity.Product"/>
         <mapping class="model.entity.ProductHasFeatureList"/>

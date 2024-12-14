@@ -4,14 +4,19 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
+import model.PayHere;
 import model.dto.User_DTO;
 import model.entity.Address;
+import model.entity.Order;
+import model.entity.OrderStatus;
 import model.entity.Product;
 import model.entity.User;
 import org.hibernate.Criteria;
@@ -55,6 +60,19 @@ public class BuyNow extends HttpServlet {
                     product_cost += product.getDeliveryOut();
                 }
 
+                // get order status
+                Criteria orderStatusTable = session.createCriteria(OrderStatus.class);
+                orderStatusTable.add(Restrictions.eq("status", "pending"));
+                OrderStatus orderStatus = (OrderStatus) orderStatusTable.uniqueResult();
+
+                // save order
+                Order order = new Order();
+                order.setDateTime(new Date());
+                order.setUser(db_user);
+                order.setStatus(orderStatus);
+                int orderId = (int) session.save(orderStatus);
+
+                // set payhere object
                 JsonObject payhereData = new JsonObject();
                 payhereData.addProperty("merchant_id", 1221196);
                 payhereData.addProperty("return_url", "index.html");
@@ -67,10 +85,13 @@ public class BuyNow extends HttpServlet {
                 payhereData.addProperty("address", userAddress.getLine1() + ", " + userAddress.getLine2() + ", " + userAddress.getCity().getCity() + ". [" + userAddress.getCity().getDistrict().getDistrict() + "]");
                 payhereData.addProperty("city", userAddress.getCity().getCity());
                 payhereData.addProperty("country", "Sri Lanka");
-                payhereData.addProperty("order_id", "");
+                payhereData.addProperty("order_id", orderId);
                 payhereData.addProperty("items", product.getTitle());
                 payhereData.addProperty("currency", "LKR");
-                payhereData.addProperty("amount", product_cost);
+                payhereData.addProperty("amount", new DecimalFormat("0.00").format(product_cost));
+
+                String md5Hash = PayHere.generateMD5(1221196 + orderId + new DecimalFormat("0.00").format(product_cost) + "LKR" + "NzcwNzM0NDkyNDA4NTQwMjkwNzE4MDM0NDA0MTE0MTM2OTA3OTk5");
+                payhereData.addProperty("hash", md5Hash);
 
                 responseObject.add("payhere_data", payhereData);
             } else {
@@ -79,6 +100,7 @@ public class BuyNow extends HttpServlet {
         } else {
             responseObject.addProperty("login_status", "Invalid user");
         }
+
         session.close();
 
         resp.setContentType("application/json");
