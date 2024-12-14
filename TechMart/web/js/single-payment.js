@@ -43,7 +43,7 @@ document.getElementById('payhere-payment').onclick = async function (e) {
             Toast.fire({
                 timer: 3000,
                 icon: "warning",
-                title: "Unable to Process Payments : " + json.login_status
+                title: "Unable to Process Payments: " + json.login_status
             });
         }
     } else {
