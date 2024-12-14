@@ -19,7 +19,7 @@ public class OrderStatus implements Serializable {
     private int id;
 
     @Column(name = "status", length = 45, nullable = false)
-    private Date status;
+    private String status;
 
     public OrderStatus() {
     }
@@ -32,11 +32,11 @@ public class OrderStatus implements Serializable {
         this.id = id;
     }
 
-    public Date getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Date status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +23,7 @@ public class BuyNow extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Gson gson = new Gson();
         JsonObject responseObject = new JsonObject();
         Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -43,10 +45,14 @@ public class BuyNow extends HttpServlet {
 
                 Address userAddress = (Address) userAddressTable.uniqueResult();
 
+                double product_cost = product.getPrice();
+
                 if (product.getDistrict().getId() == userAddress.getCity().getDistrict().getId()) {
                     responseObject.addProperty("delivery_cost", product.getDeliveryIn());
+                    product_cost += product.getDeliveryIn();
                 } else {
                     responseObject.addProperty("delivery_cost", product.getDeliveryOut());
+                    product_cost += product.getDeliveryOut();
                 }
 
                 JsonObject payhereData = new JsonObject();
@@ -64,14 +70,18 @@ public class BuyNow extends HttpServlet {
                 payhereData.addProperty("order_id", "");
                 payhereData.addProperty("items", product.getTitle());
                 payhereData.addProperty("currency", "LKR");
-                payhereData.addProperty("amount", product.getPrice());
+                payhereData.addProperty("amount", product_cost);
 
+                responseObject.add("payhere_data", payhereData);
             } else {
                 responseObject.addProperty("login_status", "Incomplete profile details");
             }
         } else {
             responseObject.addProperty("login_status", "Invalid user");
         }
-    }
+        session.close();
 
+        resp.setContentType("application/json");
+        resp.getWriter().write(gson.toJson(responseObject));
+    }
 }
