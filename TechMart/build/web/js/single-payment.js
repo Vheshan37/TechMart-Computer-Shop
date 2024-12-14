@@ -1,3 +1,4 @@
+let orderID;
 payhere.onCompleted = function onCompleted(orderId) {
     console.log("Payment completed. OrderID:" + orderId);
     updatePayment(orderId);
@@ -11,7 +12,6 @@ payhere.onError = function onError(error) {
     console.log("Error:" + error);
 };
 
-var orderID;
 document.getElementById('payhere-payment').onclick = async function (e) {
     const parameters = new URLSearchParams(window.location.search);
     const response = await fetch("BuyNow?id=" + parameters.get("id"));
