@@ -25,35 +25,35 @@ import org.hibernate.criterion.Restrictions;
 
 @WebServlet(name = "BuyNow", urlPatterns = {"/BuyNow"})
 public class BuyNow extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Gson gson = new Gson();
         JsonObject responseObject = new JsonObject();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+
         String productId = req.getParameter("id");
         Product product = (Product) session.get(Product.class, Integer.valueOf(productId));
-        
+
         responseObject.addProperty("login", false);
         if (req.getSession().getAttribute("tm_user") != null) {
-            
+
             User_DTO user = (User_DTO) req.getSession().getAttribute("tm_user");
             int userId = user.getId();
             User db_user = (User) session.get(User.class, userId);
             db_user.setPassword(null);
             responseObject.add("user", gson.toJsonTree(db_user));
-            
+
             Criteria userAddressTable = session.createCriteria(Address.class);
             userAddressTable.add(Restrictions.eq("user", db_user));
-            
+
             if (!userAddressTable.list().isEmpty()) {
                 responseObject.addProperty("login", true);
-                
+
                 Address userAddress = (Address) userAddressTable.uniqueResult();
-                
+
                 double product_cost = product.getPrice();
-                
+
                 if (product.getDistrict().getId() == userAddress.getCity().getDistrict().getId()) {
                     responseObject.addProperty("delivery_cost", product.getDeliveryIn());
                     product_cost += product.getDeliveryIn();
@@ -74,9 +74,12 @@ public class BuyNow extends HttpServlet {
                 order.setStatus(orderStatus);
                 int orderId = (int) session.save(orderStatus);
 
+                String formatedAmount = new DecimalFormat("0.00").format(product_cost);
+
                 // set payhere object
                 JsonObject payhereData = new JsonObject();
-                payhereData.addProperty("merchant_id", 1221196);
+                payhereData.addProperty("merchant_id", "1221196");
+                payhereData.addProperty("sandbox", true);
                 payhereData.addProperty("return_url", "index.html");
                 payhereData.addProperty("cancel_url", "index.html");
                 payhereData.addProperty("notify_url", "index.html");
@@ -90,11 +93,11 @@ public class BuyNow extends HttpServlet {
                 payhereData.addProperty("order_id", orderId);
                 payhereData.addProperty("items", product.getTitle());
                 payhereData.addProperty("currency", "LKR");
-                payhereData.addProperty("amount", new DecimalFormat("0.00").format(product_cost));
-                
-                String md5Hash = PayHere.generateMD5(1221196 + orderId + new DecimalFormat("0.00").format(product_cost) + "LKR" + "NzcwNzM0NDkyNDA4NTQwMjkwNzE4MDM0NDA0MTE0MTM2OTA3OTk5");
+                payhereData.addProperty("amount", formatedAmount);
+
+                String md5Hash = PayHere.generateMD5("1221196" + orderId + formatedAmount + "LKR" + "NzcwNzM0NDkyNDA4NTQwMjkwNzE4MDM0NDA0MTE0MTM2OTA3OTk5");
                 payhereData.addProperty("hash", md5Hash);
-                
+
                 responseObject.add("payhere_data", payhereData);
             } else {
                 responseObject.addProperty("login_status", "Incomplete profile details");
@@ -102,9 +105,9 @@ public class BuyNow extends HttpServlet {
         } else {
             responseObject.addProperty("login_status", "Invalid user");
         }
-        
+
         session.close();
-        
+
         resp.setContentType("application/json");
         resp.getWriter().write(gson.toJson(responseObject));
     }

@@ -1,57 +1,49 @@
-// Payment completed. It can be a successful failure.
 payhere.onCompleted = function onCompleted(orderId) {
     console.log("Payment completed. OrderID:" + orderId);
-    // Note: validate the payment and show success or failure page to the customer
 };
 
-// Payment window closed
 payhere.onDismissed = function onDismissed() {
-    // Note: Prompt user to pay again or show an error page
     console.log("Payment dismissed");
 };
 
-// Error occurred
 payhere.onError = function onError(error) {
-    // Note: show an error page
     console.log("Error:" + error);
 };
 
-// Show the payhere.js popup, when "PayHere Pay" is clicked
 document.getElementById('payhere-payment').onclick = async function (e) {
-
     const parameters = new URLSearchParams(window.location.search);
     const response = await fetch("BuyNow?id=" + parameters.get("id"));
 
     if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        console.log(json.payhere_data);
 
-        var payment = {
-            "sandbox": true,
-            "merchant_id": 1221196, // Replace your Merchant ID
-            "return_url": "index.html", // Important
-            "cancel_url": "index.html", // Important
-            "notify_url": "index.html",
-            "order_id": json.payhere_data.order_id,
-            "items": json.payhere_data.items,
-            "amount": json.payhere_data.amount,
-            "currency": "LKR",
-            "hash": json.payhere_data.hash, // *Replace with generated hash retrieved from backend
-            "first_name": json.payhere_data.first_name,
-            "last_name": json.payhere_data.last_name,
-            "email": json.payhere_data.email,
-            "phone": json.user.mobile,
-            "address": json.payhere_data.address,
-            "city": json.payhere_data.city,
-            "country": "Sri Lanka",
-            "delivery_address": json.payhere_data.address,
-            "delivery_city": json.payhere_data.city,
-            "delivery_country": "Sri Lanka",
-        };
-
-        payhere.startPayment(payment);
+        payhere.startPayment(json.payhere_data);
 
     } else {
         console.log("Response Error");
     }
 };
+
+//        var payment = {
+//            "sandbox": true,
+//            "merchant_id": 1221196,
+//            "return_url": "index.html",
+//            "cancel_url": "index.html",
+//            "notify_url": "index.html",
+//            "order_id": json.payhere_data.order_id,
+//            "items": json.payhere_data.items,
+//            "amount": json.payhere_data.amount,
+//            "currency": "LKR",
+//            "hash": json.payhere_data.hash,
+//            "first_name": json.payhere_data.first_name,
+//            "last_name": json.payhere_data.last_name,
+//            "email": json.payhere_data.email,
+//            "phone": json.user.mobile,
+//            "address": json.payhere_data.address,
+//            "city": json.payhere_data.city,
+//            "country": "Sri Lanka",
+//            "delivery_address": json.payhere_data.address,
+//            "delivery_city": json.payhere_data.city,
+//            "delivery_country": "Sri Lanka"
+//        };
