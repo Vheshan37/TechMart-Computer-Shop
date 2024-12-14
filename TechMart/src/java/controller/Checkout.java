@@ -39,7 +39,7 @@ public class Checkout extends HttpServlet {
         // user login validation
         if (req.getSession().getAttribute("tm_user") != null) {
 
-            User user = getUser(session, req, responseObject, gson); //get user            
+            User user = getUser(session, req, responseObject, gson); //get user
             Address userAddress = getUserAddress(session, user); // get user address
 
             if (userAddress != null) {
