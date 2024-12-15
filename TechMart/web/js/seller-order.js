@@ -91,11 +91,15 @@ function arrangeFrontEnd(json) {
         const downButton = cloneElement.querySelector("#orderItemStatusDown");
 
         upButton.addEventListener("click", () => {
-            increaseItemStatus(orderItem.id);
+            if (orderItem.status.id < 5) {
+                increaseItemStatus(orderItem.id);
+            }
         });
 
         downButton.addEventListener("click", () => {
-            decreaseItemStatus(orderItem.id);
+            if (orderItem.status.id > 1) {
+                decreaseItemStatus(orderItem.id);
+            }
         });
 
         document.getElementById("orderContainer").append(cloneElement);
