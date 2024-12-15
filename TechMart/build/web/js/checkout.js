@@ -45,7 +45,6 @@ async function updatePayment(orderId) {
     const response = await fetch("UpdateOrder?id=" + orderId);
     if (response.ok) {
         const json = await response.json();
-        console.log(json);
         if (json.success) {
             console.log("Success: TRUE");
         } else {

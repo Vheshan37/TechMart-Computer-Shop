@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
 async function getProfileDetails() {
     const response = await fetch("Profile");
     if (response.ok) {
-//        console.log(response);
         const json = await response.json();
         document.getElementById("first_name").value = json.user.first_name;
         document.getElementById("last_name").value = json.user.last_name;
@@ -90,6 +89,5 @@ function loadCitiesByDistrict(districtId, cityList) {
             id: item.id,
             city: item.city
         }));
-    console.log(JSON.stringify(cityData));
     loadSelectItems("citySelector", cityData, ["id", "city"]);
 }

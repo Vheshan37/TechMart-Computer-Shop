@@ -75,7 +75,6 @@ async function verifyAccount() {
     });
 
     const verification = document.getElementById("verificationInput").value;
-    console.log(verification);
     const response = await fetch("AccountVerification?code=" + verification);
     if (response.ok) {
         const json = await response.json();
