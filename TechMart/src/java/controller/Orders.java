@@ -17,7 +17,6 @@ import model.entity.OrderItem;
 import model.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 @WebServlet(name = "Orders", urlPatterns = {"/Orders"})
@@ -31,9 +30,6 @@ public class Orders extends HttpServlet {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         // processing stage
-        Transaction transaction = session.beginTransaction();
-
-        // code here...
         User seller = getSeller(session, req, responseObject, gson);
         List<Order> orderList = getOrderList(session, seller);
         responseObject.add("orderList", gson.toJsonTree(orderList));
@@ -41,7 +37,6 @@ public class Orders extends HttpServlet {
         responseObject.add("orderItemList", gson.toJsonTree(allOrderItems));
 
         // finalizing stage
-        transaction.commit();
         session.close();
 
         resp.setContentType("application/json");
@@ -51,6 +46,8 @@ public class Orders extends HttpServlet {
     public User getSeller(Session session, HttpServletRequest req, JsonObject responseObject, Gson gson) {
         User_DTO userDTO = (User_DTO) req.getSession().getAttribute("tm_user");
         User user = (User) session.get(User.class, userDTO.getId());
+        user.setPassword(null);
+        user.setVerification(null);
         responseObject.add("user", gson.toJsonTree(user));
 
         return user;
@@ -67,9 +64,15 @@ public class Orders extends HttpServlet {
         List<OrderItem> allOrderItems = new ArrayList<>();
 
         for (Order order : orderList) {
+            order.getUser().setPassword(null);
+            order.getUser().setVerification(null);
             Criteria orderItemCriteria = session.createCriteria(OrderItem.class);
             orderItemCriteria.add(Restrictions.eq("order", order)); // Match Order in OrderItem
             List<OrderItem> orderItems = orderItemCriteria.list();  // Fetch OrderItems for this Order
+            for (OrderItem orderItem : orderItems) {
+                orderItem.getOrder().getUser().setPassword(null);
+                orderItem.getOrder().getUser().setVerification(null);
+            }
             allOrderItems.addAll(orderItems); // Add them to the combined list
         }
 
