@@ -112,6 +112,12 @@ public class BuyNow extends HttpServlet {
         return (OrderStatus) orderStatusCriteria.uniqueResult();
     }
 
+    private OrderItemStatus getOrderItemStatus(Session session) {
+        Criteria orderItemStatusCriteria = session.createCriteria(OrderItemStatus.class);
+        orderItemStatusCriteria.add(Restrictions.eq("status", "pending"));
+        return (OrderItemStatus) orderItemStatusCriteria.uniqueResult();
+    }
+
     private Order createOrder(Session session, User user, OrderStatus orderStatus, Product product) {
         Order order = new Order();
         order.setDateTime(new Date());
@@ -123,6 +129,7 @@ public class BuyNow extends HttpServlet {
         orderItem.setProduct(product);
         orderItem.setQty(1);
         orderItem.setOrder(order);
+        orderItem.setStatus(getOrderItemStatus(session));
         session.save(orderItem);
 
         return order;

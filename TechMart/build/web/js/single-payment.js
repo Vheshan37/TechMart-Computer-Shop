@@ -39,7 +39,7 @@ document.getElementById('payhere-payment').onclick = async function (e) {
             });
         }
     } else {
-        console.log("Response Error");
+        console.log("Response Error: " + response);
     }
 };
 
