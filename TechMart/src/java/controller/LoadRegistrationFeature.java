@@ -21,7 +21,6 @@ import model.entity.FeatureList;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 
 @WebServlet(name = "LoadRegistrationFeature", urlPatterns = {"/LoadRegistrationFeature"})
 public class LoadRegistrationFeature extends HttpServlet {
