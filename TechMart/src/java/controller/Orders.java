@@ -27,6 +27,7 @@ public class Orders extends HttpServlet {
 
         // code here...
         
+        
         // finalizing stage
         transaction.commit();
         session.close();
