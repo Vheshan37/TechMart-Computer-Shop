@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(urlPatterns = {"/product-registration.html", "/profile.html", "/product-home.html", "/product-management.html"})
+@WebFilter(urlPatterns = {"/product-registration.html", "/profile.html", "/product-home.html", "/product-management.html", "/seller-order.html", "/purchasing-history"})
 public class LoginFilter implements Filter {
 
     @Override
