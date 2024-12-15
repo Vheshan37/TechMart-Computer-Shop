@@ -33,12 +33,22 @@ async function getDefaultOrders() {
                 hour12: true      // 12-hour format (AM/PM)
             }).format(dateObj);
 
+            let numericValue = parseFloat(orderItem.qty * orderItem.product.price);
+
+            // Format the number as currency
+            let formattedCurrency = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'LKR'
+            }).format(numericValue);
+
             let cloneElement = cloneItem.cloneNode(true);
             cloneElement.querySelector("#col_01").innerHTML = formattedDate;
             cloneElement.querySelector("#orderItemImage").src = "img/Product/" + orderItem.product.title + "_(" + orderItem.product.id + ")_(1).jpg";
             cloneElement.querySelector("#orderItemTitle").innerHTML = orderItem.product.title;
             cloneElement.querySelector("#orderItemQty").innerHTML = "Qty: " + orderItem.qty;
             cloneElement.querySelector("#orderItemUser").innerHTML = orderItem.order.user.first_name + " " + orderItem.order.user.last_name;
+            cloneElement.querySelector("#orderItemAmount").innerHTML = formattedCurrency;
+            cloneElement.querySelector("#orderItemStatus").innerHTML = orderItem.status.status;
 
             document.getElementById("orderContainer").append(cloneElement);
         });
