@@ -3,14 +3,21 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
+import model.dto.User_DTO;
+import model.entity.Cart;
+import model.entity.Order;
+import model.entity.User;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 @WebServlet(name = "Orders", urlPatterns = {"/Orders"})
 public class Orders extends HttpServlet {
@@ -26,6 +33,11 @@ public class Orders extends HttpServlet {
         Transaction transaction = session.beginTransaction();
 
         // code here...
+        User seller = getSeller(session, req, responseObject, gson);
+        List<Order> orderList = getOrderList(session, seller);
+        for (Order order : orderList) {
+            
+        }
         
         
         // finalizing stage
@@ -34,6 +46,21 @@ public class Orders extends HttpServlet {
 
         resp.setContentType("application/json");
         resp.getWriter().write(gson.toJson(responseObject));
+    }
+
+    public User getSeller(Session session, HttpServletRequest req, JsonObject responseObject, Gson gson) {
+        User_DTO userDTO = (User_DTO) req.getSession().getAttribute("tm_user");
+        User user = (User) session.get(User.class, userDTO.getId());
+        responseObject.add("user", gson.toJsonTree(user));
+
+        return user;
+    }
+
+    public List<Order> getOrderList(Session session, User user) {
+        Criteria orderTable = session.createCriteria(Order.class);
+        orderTable.add(Restrictions.eq("user", session.get(User.class, user.getId())));
+        List<Order> orderList = orderTable.list();
+        return orderList;
     }
 
 }
