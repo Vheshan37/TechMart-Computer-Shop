@@ -31,6 +31,10 @@ public class OrderItem implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @ManyToOne
+    @JoinColumn(name = "order_item_status_id")
+    private OrderItemStatus status;
+
     public OrderItem() {
     }
 
@@ -64,6 +68,14 @@ public class OrderItem implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public OrderItemStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderItemStatus status) {
+        this.status = status;
     }
 
 }

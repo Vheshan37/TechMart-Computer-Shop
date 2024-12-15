@@ -21,6 +21,7 @@
         <mapping class="model.entity.Order"/>
         <mapping class="model.entity.OrderStatus"/>
         <mapping class="model.entity.OrderItem"/>
+        <mapping class="model.entity.OrderItemStatus"/>
         <mapping class="model.entity.Product"/>
         <mapping class="model.entity.ProductHasFeatureList"/>
         <mapping class="model.entity.User"/>
