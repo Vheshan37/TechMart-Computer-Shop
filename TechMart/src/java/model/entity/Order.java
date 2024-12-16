@@ -23,6 +23,9 @@ public class Order implements Serializable {
     @Column(name = "date_time", nullable = false)
     private Date dateTime;
 
+    @Column(name = "paid_amount", nullable = false)
+    private double paidAmount;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -64,6 +67,14 @@ public class Order implements Serializable {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public double getPaidAmount() {
+        return paidAmount;
+    }
+
+    public void setPaidAmount(double paidAmount) {
+        this.paidAmount = paidAmount;
     }
 
 }

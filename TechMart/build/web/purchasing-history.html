@@ -26,7 +26,7 @@
     <body class="cursor-default w-dvw background-color bg-no-repeat">
 
 
-        <div class="absolute flex justify-center items-center flex-col bg-opacity-75" 
+        <div class="absolute flex justify-center items-center flex-col bg-opacity-75 hidden" 
              style="z-index: 2; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.75)">
             <div class="flex justify-center items-center gap-2 bg-slate-300 p-2 rounded mb-2">
                 <iconify-icon class="text-red-500" icon="mdi:download" style="font-size: 24px;"></iconify-icon>
@@ -38,7 +38,7 @@
                 <!-- Header -->
                 <div class="bg-gray-800 text-white px-5 py-3 flex justify-between">
                     <h2 class="font-bold text-lg">Invoice</h2>
-                    <button class="text-white hover:text-gray-400">&times;</button>
+                    <button class="text-white text-2xl hover:text-gray-400">&times;</button>
                 </div>
 
                 <!-- Invoice Body -->
@@ -240,6 +240,11 @@
                                                         icon="material-symbols-light:delete-outline" width="24"
                                                         height="24">                                                                      
                                                     </iconify-icon>
+                                                </button>
+                                                <button
+                                                    id="ViewInvoice"
+                                                    class="bg-blue-800 p-3 flex items-center justify-center rounded text-blue-300 text-xl">
+                                                    <iconify-icon icon="mdi:file-document-outline" style="font-size: 24px;"></iconify-icon>
                                                 </button>
                                             </td>
                                         </tr>

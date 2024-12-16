@@ -83,7 +83,7 @@ public class BuyNow extends HttpServlet {
 
         OrderStatus orderStatus = getOrderStatus(session);
 
-        Order order = createOrder(session, user, orderStatus, product);
+        Order order = createOrder(session, user, orderStatus, product, productCost);
 
         responseObject.addProperty("orderID", order.getId());
 
@@ -118,11 +118,12 @@ public class BuyNow extends HttpServlet {
         return (OrderItemStatus) orderItemStatusCriteria.uniqueResult();
     }
 
-    private Order createOrder(Session session, User user, OrderStatus orderStatus, Product product) {
+    private Order createOrder(Session session, User user, OrderStatus orderStatus, Product product, double productCost) {
         Order order = new Order();
         order.setDateTime(new Date());
         order.setUser(user);
         order.setStatus(orderStatus);
+        order.setPaidAmount(productCost);
         session.save(order);
 
         OrderItem orderItem = new OrderItem();
