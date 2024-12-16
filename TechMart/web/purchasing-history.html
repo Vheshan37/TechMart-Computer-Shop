@@ -30,13 +30,13 @@
             id="invoiceModel"
             class="absolute flex justify-center items-center flex-col bg-opacity-75 hidden" 
             style="z-index: 2; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.75)">
-            <div class="flex justify-center items-center gap-2 bg-slate-300 p-2 rounded mb-2 cursor-pointer">
+            <div class="flex justify-center items-center gap-2 bg-slate-300 p-2 rounded mb-2 cursor-pointer" id="download-pdf">
                 <iconify-icon class="text-red-500" icon="mdi:download" style="font-size: 24px;"></iconify-icon>
                 <span class="text-red-500">Download</span>
             </div>
-            <div
-                class="w-2/3 bg-white border border-gray-300 shadow-md rounded-md overflow-hidden"
-                >
+            <div id="pdf-content"
+                 class="w-2/3 bg-white border border-gray-300 shadow-md rounded-md overflow-hidden"
+                 >
                 <!-- Header -->
                 <div class="bg-gray-800 text-white px-5 py-3 flex justify-between">
                     <h2 class="font-bold text-lg">Invoice</h2>
@@ -92,16 +92,16 @@
                     <div class="flex flex-col items-end">
                         <p class="text-gray-600 w-1/2 flex justify-between">
                             <span>Sub Total: </span>
-                            <span class="font-medium ml-2">LKR 7,500.00</span>
+                            <span class="font-medium ml-2" id="invoice_sub_total">LKR 7,500.00</span>
                         </p>
                         <p class="text-gray-600 w-1/2 flex justify-between">
                             <span>Shipping Cost: </span>
-                            <span class="font-medium ml-2">LKR 600.00</span>
+                            <span class="font-medium ml-2" id="invoice_delivery_fee">LKR 600.00</span>
                         </p>
                         <hr class="border-t-2 border-gray-300 w-1/2 my-1" />
                         <p class="text-gray-800 font-bold text-lg w-1/2 flex justify-between">
                             <span>Total: </span>
-                            <span class="ml-2">LKR 8,100.00</span>
+                            <span class="ml-2" id="invoice_total_amount">LKR 8,100.00</span>
                         </p>
                     </div>
                 </div>
@@ -269,6 +269,10 @@
 
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
         <script src="js/purchasing-history.js"></script>
     </body>
 

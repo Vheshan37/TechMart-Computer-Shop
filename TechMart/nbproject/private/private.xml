@@ -3,15 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/controller/BuyNow.java</file>
+            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/model/entity/Order.java</file>
             <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/web/js/seller-order.js</file>
-            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/model/filter/LoginFilter.java</file>
-            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/web/profile.html</file>
-            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/web/seller-panel.html</file>
-            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/web/seller-order.html</file>
-            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/web/product-home.html</file>
-            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/controller/Checkout.java</file>
+            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/controller/Orders.java</file>
+            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/model/entity/OrderItem.java</file>
             <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/web/purchasing-history.html</file>
             <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/web/js/purchasing-history.js</file>
+            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/controller/Checkout.java</file>
+            <file>file:/E:/Quantum%20Blaze/Projects/Research%20Project/Computer%20Shop/Repo/TechMart-Computer-Shop/TechMart/src/java/controller/loadPurchasingHistory.java</file>
         </group>
     </open-files>
 </project-private>

@@ -54,16 +54,16 @@ function arrangeFrontEnd(json) {
             currency: 'LKR'
         }).format(numericValue);
 
-        let cloneElement = cloneItem.cloneNode(true);
-        cloneElement.querySelector("#col_01").innerHTML = "TM_" + order.id;
-        cloneElement.querySelector("#col_02").innerHTML = formattedDate;
-        cloneElement.querySelector("#col_03").innerHTML = itemCount + " items";
-        cloneElement.querySelector("#col_04").innerHTML = formattedCurrency;
-        cloneElement.querySelector("#col_05").innerHTML = order.status.status;
+        let invoiceElement = cloneItem.cloneNode(true);
+        invoiceElement.querySelector("#col_01").innerHTML = "TM_" + order.id;
+        invoiceElement.querySelector("#col_02").innerHTML = formattedDate;
+        invoiceElement.querySelector("#col_03").innerHTML = itemCount + " items";
+        invoiceElement.querySelector("#col_04").innerHTML = formattedCurrency;
+        invoiceElement.querySelector("#col_05").innerHTML = order.status.status;
 
-        const upButton = cloneElement.querySelector("#ViewPurchase");
-        const downButton = cloneElement.querySelector("#deletePurchase");
-        const invoiceButton = cloneElement.querySelector("#ViewInvoice");
+        const upButton = invoiceElement.querySelector("#ViewPurchase");
+        const downButton = invoiceElement.querySelector("#deletePurchase");
+        const invoiceButton = invoiceElement.querySelector("#ViewInvoice");
 
         upButton.addEventListener("click", () => {
             viewPurchasedItems(order.id, json);
@@ -83,6 +83,8 @@ function arrangeFrontEnd(json) {
             let cloneItem = document.getElementById("invoiceItem");
             document.getElementById("invoiceItemContainer").innerHTML = "";
 
+            let subTotal = 0;
+            let deliveryFee = 0;
             json.orderItemList.forEach((orderItem) => {
                 if (orderItem.order.id == order.id) {
                     let cloneElement = cloneItem.cloneNode(true);
@@ -91,15 +93,22 @@ function arrangeFrontEnd(json) {
                     cloneElement.querySelector("#col_03").innerHTML = orderItem.product.price;
                     cloneElement.querySelector("#col_04").innerHTML = orderItem.qty;
 
+                    subTotal += orderItem.product.price * orderItem.qty;
+                    deliveryFee += orderItem.deliveryFee;
+
                     document.getElementById("invoiceItemContainer").append(cloneElement);
                 }
             });
+
+            document.getElementById("invoice_sub_total").innerHTML = subTotal;
+            document.getElementById("invoice_delivery_fee").innerHTML = deliveryFee;
+            document.getElementById("invoice_total_amount").innerHTML = subTotal + deliveryFee;
 
             let invoiceModel = document.getElementById("invoiceModel");
             invoiceModel.classList.remove("hidden");
         });
 
-        document.getElementById("purchasingContainer").append(cloneElement);
+        document.getElementById("purchasingContainer").append(invoiceElement);
     });
 }
 
@@ -158,4 +167,27 @@ document.getElementById("closeBtn").addEventListener("click", () => {
 document.getElementById("closeInvoie").addEventListener("click", () => {
     let invoiceModel = document.getElementById("invoiceModel");
     invoiceModel.classList.add("hidden");
+});
+
+
+document.getElementById('download-pdf').addEventListener('click', async () => {
+    const {jsPDF} = window.jspdf;
+    const content = document.getElementById('pdf-content');
+
+    // Use html2canvas to capture the HTML content
+    const canvas = await html2canvas(content);
+    const imgData = canvas.toDataURL('image/png');
+
+    // Create a new jsPDF instance
+    const pdf = new jsPDF('p', 'mm', 'a4'); // Portrait, millimeters, A4 size
+
+    // Calculate dimensions to fit content on A4 page
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    // Add image to PDF
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+    // Trigger download
+    pdf.save('invoice.pdf');
 });
