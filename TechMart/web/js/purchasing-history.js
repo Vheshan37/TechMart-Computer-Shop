@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function getDefaultOrders() {
-    const response = await fetch("Orders");
+    const response = await fetch("loadPurchasingHistory");
 
     if (response.ok) {
         const json = await response.json();
