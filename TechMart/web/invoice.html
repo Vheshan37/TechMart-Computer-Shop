@@ -46,17 +46,19 @@
                 <div>
                     <h1 class="text-2xl font-bold text-indigo-600">Invoice</h1>
                     <p class="text-gray-600 mt-2">
-                        <span class="font-semibold">Order ID:</span> TM_01
+                        <span class="font-semibold">Order ID:</span>
+                        <span id="invoice_id">TM_01</span>
                     </p>
                     <p class="text-gray-600">
-                        <span class="font-semibold">Order Date:</span> 2024/05/05 7:30 AM
+                        <span class="font-semibold">Order Date:</span>
+                        <span id="invoice_date_time">2024/05/05 7:30 AM</span>
                     </p>
                 </div>
                 <div>
                     <h2 class="text-lg font-bold text-gray-800">Invoice To</h2>
-                    <p class="text-gray-600 mt-2">Vihanga Heshan</p>
-                    <p class="text-gray-600">231/D, Deenapamunuwa</p>
-                    <p class="text-gray-600">Urapola</p>
+                    <p class="text-gray-600 mt-2" id="invoice_user">Vihanga Heshan</p>
+                    <p class="text-gray-600" id="invoice_user_address">231/D, Deenapamunuwa</p>
+                    <p class="text-gray-600" id="invoice_user_city">Urapola</p>
                 </div>
             </div>
 
@@ -68,15 +70,19 @@
                         <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Product</th>
                         <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Price</th>
                         <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Qty</th>
+                        <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Amount</th>
+                        <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Delivery Fee</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="border border-gray-300 py-3 px-4 text-gray-700">TM_01</td>
-                        <td class="border border-gray-300 py-3 px-4 text-gray-700">Gaming Office High Back Computer
+                <tbody id="invoice_container">
+                    <tr id="invoice_item">
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700" id="invoice_product_id">TM_01</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700" id="invoice_product_name">Gaming Office High Back Computer
                             Ergonomic Adjustable S...</td>
-                        <td class="border border-gray-300 py-3 px-4 text-gray-700">LKR 7,500.00</td>
-                        <td class="border border-gray-300 py-3 px-4 text-gray-700">1</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700" id="invoice_product_price">LKR 7,500.00</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700" id="invoice_product_qty">1</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700" id="invoice_product_amount">1</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700" id="invoice_product_delivery">1</td>
                     </tr>
                 </tbody>
             </table>
@@ -86,16 +92,16 @@
                 <div class="w-1/2">
                     <div class="flex justify-between py-2">
                         <span class="text-gray-600">Sub Total:</span>
-                        <span class="font-medium">LKR 7,500.00</span>
+                        <span class="font-medium" id="invoice_sub_total">LKR 7,500.00</span>
                     </div>
                     <div class="flex justify-between py-2">
                         <span class="text-gray-600">Shipping Cost:</span>
-                        <span class="font-medium">LKR 600.00</span>
+                        <span class="font-medium" id="invoice_shiping_cost">LKR 600.00</span>
                     </div>
                     <hr class="border-gray-300 my-2">
                     <div class="flex justify-between py-2 text-lg font-bold">
                         <span>Total:</span>
-                        <span>LKR 8,100.00</span>
+                        <span id="invoice_total">LKR 8,100.00</span>
                     </div>
                 </div>
             </div>
@@ -123,6 +129,7 @@
                 html2pdf().set(options).from(invoiceElement).save();
             });
         </script>
+        <script src="js/invoice.js"></script>
     </body>
 
 </html>
