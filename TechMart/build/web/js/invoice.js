@@ -65,3 +65,19 @@ async function getInvoiceDetails() {
         console.log("Response Error: " + response.status);
     }
 }
+
+document.getElementById("home").addEventListener("click", (() => {
+    window.location = "index.html";
+}));
+
+document.getElementById("shop").addEventListener("click", (() => {
+    window.location = "shop.html";
+}));
+
+document.getElementById("cart").addEventListener("click", (() => {
+    window.location = "cart.html";
+}));
+
+document.getElementById("profile").addEventListener("click", (() => {
+    window.location = "profile.html";
+}));

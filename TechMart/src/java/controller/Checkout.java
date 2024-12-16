@@ -57,7 +57,7 @@ public class Checkout extends HttpServlet {
                     for (Cart cart : cartList) {
                         cartAmount += cart.getProduct().getPrice() * cart.getQuantity();
                         deliveryFee += getDeliveryCost(userAddress, cart.getProduct(), responseObject);
-                        handleOrderItem(cart, order, session, deliveryFee);
+                        handleOrderItem(cart, order, session, getDeliveryCost(userAddress, cart.getProduct(), responseObject));
                     }
                     double totalAmount = cartAmount + deliveryFee;
                     updatePaidAmount(totalAmount, order, session);
@@ -144,9 +144,8 @@ public class Checkout extends HttpServlet {
         orderItem.setQty(cart.getQuantity());
         orderItem.setOrder(order);
         orderItem.setStatus(getOrderItemStatus(session));
-        orderItem.setDeliveryFee(0);
+        orderItem.setDeliveryFee(deliveryFee);
         session.save(orderItem);
-        session.delete(cart);
     }
 
     public void handlePaymentProcess(double cartAmount, Order order, User user, Address userAddress, JsonObject responseObject) {

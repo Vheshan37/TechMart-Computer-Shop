@@ -46,19 +46,17 @@ async function updatePayment(orderId) {
     if (response.ok) {
         const json = await response.json();
         if (json.success) {
-            console.log("Success: TRUE");
+            Toast.fire({
+                timer: 3000,
+                icon: "success",
+                title: "Payment Completed."
+            }).then(() => {
+                window.location = "invoice.html?id=" + orderId;
+            });
         } else {
             console.log("Success: FALSE");
         }
     } else {
         console.log("Response Error");
     }
-
-    Toast.fire({
-        timer: 3000,
-        icon: "success",
-        title: "Payment Completed."
-    }).then(() => {
-        window.location.reload();
-    });
 }
