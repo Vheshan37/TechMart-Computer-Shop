@@ -23,6 +23,9 @@ public class OrderItem implements Serializable {
     @Column(name = "qty", nullable = false)
     private int qty;
 
+    @Column(name = "delivery_fee", nullable = false)
+    private double deliveryFee;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -76,6 +79,14 @@ public class OrderItem implements Serializable {
 
     public void setStatus(OrderItemStatus status) {
         this.status = status;
+    }
+
+    public double getDeliveryFee() {
+        return deliveryFee;
+    }
+
+    public void setDeliveryFee(double deliveryFee) {
+        this.deliveryFee = deliveryFee;
     }
 
 }

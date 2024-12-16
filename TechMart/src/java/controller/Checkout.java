@@ -56,12 +56,11 @@ public class Checkout extends HttpServlet {
                     double deliveryFee = 0;
                     for (Cart cart : cartList) {
                         cartAmount += cart.getProduct().getPrice() * cart.getQuantity();
-                        handleOrderItem(cart, order, session);
                         deliveryFee += getDeliveryCost(userAddress, cart.getProduct(), responseObject);
+                        handleOrderItem(cart, order, session, deliveryFee);
                     }
                     double totalAmount = cartAmount + deliveryFee;
                     updatePaidAmount(totalAmount, order, session);
-
                     handlePaymentProcess(totalAmount, order, user, userAddress, responseObject); // payhere process
                 }
             } else {
@@ -139,12 +138,13 @@ public class Checkout extends HttpServlet {
         return order;
     }
 
-    public void handleOrderItem(Cart cart, Order order, Session session) {
+    public void handleOrderItem(Cart cart, Order order, Session session, double deliveryFee) {
         OrderItem orderItem = new OrderItem();
         orderItem.setProduct(cart.getProduct());
         orderItem.setQty(cart.getQuantity());
         orderItem.setOrder(order);
         orderItem.setStatus(getOrderItemStatus(session));
+        orderItem.setDeliveryFee(0);
         session.save(orderItem);
         session.delete(cart);
     }
