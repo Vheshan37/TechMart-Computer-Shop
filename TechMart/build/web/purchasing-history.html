@@ -26,9 +26,11 @@
     <body class="cursor-default w-dvw background-color bg-no-repeat">
 
 
-        <div class="absolute flex justify-center items-center flex-col bg-opacity-75 hidden" 
-             style="z-index: 2; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.75)">
-            <div class="flex justify-center items-center gap-2 bg-slate-300 p-2 rounded mb-2">
+        <div 
+            id="invoiceModel"
+            class="absolute flex justify-center items-center flex-col bg-opacity-75 hidden" 
+            style="z-index: 2; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.75)">
+            <div class="flex justify-center items-center gap-2 bg-slate-300 p-2 rounded mb-2 cursor-pointer">
                 <iconify-icon class="text-red-500" icon="mdi:download" style="font-size: 24px;"></iconify-icon>
                 <span class="text-red-500">Download</span>
             </div>
@@ -38,7 +40,7 @@
                 <!-- Header -->
                 <div class="bg-gray-800 text-white px-5 py-3 flex justify-between">
                     <h2 class="font-bold text-lg">Invoice</h2>
-                    <button class="text-white text-2xl hover:text-gray-400">&times;</button>
+                    <button class="text-white text-2xl hover:text-gray-400" id="closeInvoie">&times;</button>
                 </div>
 
                 <!-- Invoice Body -->
@@ -48,8 +50,8 @@
                         <!-- Invoice Details -->
                         <div>
                             <h3 class="font-bold text-gray-700 text-lg mb-2">Invoice</h3>
-                            <p class="text-gray-700">Invoice Number: <span class="font-medium">TM_01</span></p>
-                            <p class="text-gray-700">Date: <span class="font-medium">2024/05/05 7:30 AM</span></p>
+                            <p class="text-gray-700">Invoice Number: <span class="font-medium" id="invoice_id">TM_01</span></p>
+                            <p class="text-gray-700">Date: <span class="font-medium" id="invoice_date_time">2024/05/05 7:30 AM</span></p>
                         </div>
 
                         <!-- Invoice To -->
@@ -57,9 +59,9 @@
                             <h3 class="font-bold text-gray-700 text-lg mb-2 text-right">
                                 Invoice To
                             </h3>
-                            <p class="text-right text-gray-700">Vihang Heshan,</p>
-                            <p class="text-right text-gray-700">231/D, Deenapamunwa,</p>
-                            <p class="text-right text-gray-700">Urapola.</p>
+                            <p class="text-right text-gray-700" id="invoice_customer">Vihang Heshan,</p>
+                            <p class="text-right text-gray-700" id="invoice_address">231/D, Deenapamunwa,</p>
+                            <p class="text-right text-gray-700" id="invoice_city">Urapola.</p>
                         </div>
                     </div>
 
@@ -73,15 +75,15 @@
                                 <th class="text-left font-semibold text-gray-700">Qty</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="invoiceItemContainer">
                             <!-- Product Row -->
-                            <tr class="border-b border-gray-200">
-                                <td class="py-2 text-gray-700">TM_01</td>
-                                <td class="truncate w-2/3 text-gray-700">
+                            <tr class="border-b border-gray-200" id="invoiceItem">
+                                <td class="py-2 text-gray-700" id="col_01">TM_01</td>
+                                <td class="truncate w-2/3 text-gray-700" id="col_02">
                                     Gaming Office High Back Computer Ergonomic Adjustable S...
                                 </td>
-                                <td class="text-gray-700">LKR 7,500.00</td>
-                                <td class="text-gray-700">1</td>
+                                <td class="text-gray-700" id="col_03">LKR 7,500.00</td>
+                                <td class="text-gray-700" id="col_04">1</td>
                             </tr>
                         </tbody>
                     </table>

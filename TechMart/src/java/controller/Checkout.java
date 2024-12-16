@@ -18,7 +18,9 @@ import model.entity.Address;
 import model.entity.Cart;
 import model.entity.Order;
 import model.entity.OrderItem;
+import model.entity.OrderItemStatus;
 import model.entity.OrderStatus;
+import model.entity.Product;
 import model.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -51,12 +53,16 @@ public class Checkout extends HttpServlet {
                     Order order = createNewOrder(user, orderStatus, session); // create new order
 
                     double cartAmount = 0;
+                    double deliveryFee = 0;
                     for (Cart cart : cartList) {
                         cartAmount += cart.getProduct().getPrice() * cart.getQuantity();
                         handleOrderItem(cart, order, session);
+                        deliveryFee += getDeliveryCost(userAddress, cart.getProduct(), responseObject);
                     }
+                    double totalAmount = cartAmount + deliveryFee;
+                    updatePaidAmount(totalAmount, order, session);
 
-                    handlePaymentProcess(cartAmount, order, user, userAddress, responseObject); // payhere process
+                    handlePaymentProcess(totalAmount, order, user, userAddress, responseObject); // payhere process
                 }
             } else {
                 responseObject.addProperty("login_status", "Incomplete profile details");
@@ -66,11 +72,26 @@ public class Checkout extends HttpServlet {
         }
 
         transaction.commit();
-
         session.close();
-
         resp.setContentType("application/json");
         resp.getWriter().write(gson.toJson(responseObject));
+    }
+
+    private void updatePaidAmount(double totalAmount, Order order, Session session) {
+        order.setPaidAmount(totalAmount);
+        session.update(order);
+    }
+
+    private double getDeliveryCost(Address userAddress, Product product, JsonObject responseObject) {
+        double deliveryCost;
+        if (product.getDistrict().getId() == userAddress.getCity().getDistrict().getId()) {
+            deliveryCost = product.getDeliveryIn();
+            responseObject.addProperty("delivery_cost", deliveryCost);
+        } else {
+            deliveryCost = product.getDeliveryOut();
+            responseObject.addProperty("delivery_cost", deliveryCost);
+        }
+        return deliveryCost;
     }
 
     public User getUser(Session session, HttpServletRequest req, JsonObject responseObject, Gson gson) {
@@ -102,6 +123,13 @@ public class Checkout extends HttpServlet {
         return orderStatus;
     }
 
+    public OrderItemStatus getOrderItemStatus(Session session) {
+        Criteria orderItemStatusCriteria = session.createCriteria(OrderItemStatus.class);
+        orderItemStatusCriteria.add(Restrictions.eq("status", "Pending"));
+        OrderItemStatus orderItemStatus = (OrderItemStatus) orderItemStatusCriteria.uniqueResult();
+        return orderItemStatus;
+    }
+
     public Order createNewOrder(User user, OrderStatus orderStatus, Session session) {
         Order order = new Order();
         order.setDateTime(new Date());
@@ -116,6 +144,7 @@ public class Checkout extends HttpServlet {
         orderItem.setProduct(cart.getProduct());
         orderItem.setQty(cart.getQuantity());
         orderItem.setOrder(order);
+        orderItem.setStatus(getOrderItemStatus(session));
         session.save(orderItem);
         session.delete(cart);
     }

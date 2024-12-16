@@ -16,6 +16,7 @@ async function getDefaultOrders() {
 function arrangeFrontEnd(json) {
     let cloneItem = document.getElementById("purchaseItem");
     document.getElementById("purchasingContainer").innerHTML = "";
+    console.log(json);
 
     json.orderList.forEach((order) => {
 
@@ -62,6 +63,7 @@ function arrangeFrontEnd(json) {
 
         const upButton = cloneElement.querySelector("#ViewPurchase");
         const downButton = cloneElement.querySelector("#deletePurchase");
+        const invoiceButton = cloneElement.querySelector("#ViewInvoice");
 
         upButton.addEventListener("click", () => {
             viewPurchasedItems(order.id, json);
@@ -69,6 +71,32 @@ function arrangeFrontEnd(json) {
 
         downButton.addEventListener("click", () => {
 
+        });
+
+        invoiceButton.addEventListener("click", () => {
+            document.getElementById("invoice_id").innerHTML = "TM_" + order.id;
+            document.getElementById("invoice_date_time").innerHTML = formattedDate;
+            document.getElementById("invoice_customer").innerHTML = order.user.first_name + " " + order.user.last_name;
+            document.getElementById("invoice_address").innerHTML = formattedDate;
+            document.getElementById("invoice_city").innerHTML = formattedDate;
+
+            let cloneItem = document.getElementById("invoiceItem");
+            document.getElementById("invoiceItemContainer").innerHTML = "";
+
+            json.orderItemList.forEach((orderItem) => {
+                if (orderItem.order.id == order.id) {
+                    let cloneElement = cloneItem.cloneNode(true);
+                    cloneElement.querySelector("#col_01").innerHTML = orderItem.product.id;
+                    cloneElement.querySelector("#col_02").innerHTML = orderItem.product.title;
+                    cloneElement.querySelector("#col_03").innerHTML = orderItem.product.price;
+                    cloneElement.querySelector("#col_04").innerHTML = orderItem.qty;
+
+                    document.getElementById("invoiceItemContainer").append(cloneElement);
+                }
+            });
+
+            let invoiceModel = document.getElementById("invoiceModel");
+            invoiceModel.classList.remove("hidden");
         });
 
         document.getElementById("purchasingContainer").append(cloneElement);
@@ -124,4 +152,10 @@ function viewPurchasedItems(orderID, json) {
 document.getElementById("closeBtn").addEventListener("click", () => {
     let purchasedItemsModel = document.getElementById("purchasedItemModel");
     purchasedItemsModel.classList.add("hidden");
+});
+
+// close the invoice model
+document.getElementById("closeInvoie").addEventListener("click", () => {
+    let invoiceModel = document.getElementById("invoiceModel");
+    invoiceModel.classList.add("hidden");
 });
