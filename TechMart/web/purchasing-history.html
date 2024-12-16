@@ -26,7 +26,16 @@
     <body class="cursor-default w-dvw background-color bg-no-repeat">
 
         <!-- Order item table model -->
-        <div class="absolute flex justify-center items-center flex-col bg-opacity-75 hidden" style="z-index: 2; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.75)">
+        <div 
+            id="purchasedItemModel"
+            class="absolute flex justify-center items-center flex-col bg-opacity-75 hidden" 
+            style="z-index: 2; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.75)">
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10 cursor-pointer mb-2" id="closeBtn">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+
+
             <table class="table-auto border border-blue-900 rounded-lg bg-blue-950"  
                    style="width: 80vw;">
                 <thead>
@@ -36,58 +45,25 @@
                         <th class="px-4 font-normal py-2">Customer</th>
                         <th class="px-4 font-normal py-2">Amount</th>
                         <th class="px-4 font-normal py-2">Status</th>
-                        <th class="px-4 font-normal py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-sm" id="orderContainer">
                     <tr id="orderItem"
                         class="border-b border-blue-700 hover:bg-blue-700 hover:bg-opacity-10 cursor-pointer">
-                        <td class="px-4 py-2" id="col_01">09, Sep 2024</td>
+                        <td class="px-4 py-2" id="purchase_col_01">09, Sep 2024</td>
                         <td class="px-4 py-2 flex items-center">
-                            <img src="" class="w-10 h-10 bg-blue-600 rounded-sm mr-3" id="orderItemImage" style="object-fit: contain"/>
+                            <img src="" class="w-10 h-10 bg-blue-600 rounded-sm mr-3" id="purchase_orderItemImage" style="object-fit: contain"/>
                             <div>
-                                <div id="orderItemTitle">Gaming Headset</div>
-                                <div class="text-sm text-blue-300" id="orderItemQty">Qty: 2</div>
+                                <div id="purchase_orderItemTitle">Gaming Headset</div>
+                                <div class="text-sm text-blue-300" id="purchase_orderItemQty">Qty: 2</div>
                             </div>
                         </td>
                         <td class="px-4 py-2">
-                            <div id="orderItemUser">John Doe</div>
+                            <div id="purchase_orderItemUser">John Doe</div>
                             <div class="text-sm text-blue-300">13/A, Marble Street, Roadhouse</div>
                         </td>
-                        <td class="px-4 py-2" id="orderItemAmount">LKR: 25700.00</td>
-                        <td class="px-4 py-2" id="orderItemStatus">Packing</td>
-                        <td class="px-4 py-2 flex space-x-2">
-                            <button 
-                                id="orderItemStatusUp"
-                                class="bg-blue-800 p-3 flex items-center justify-center rounded text-blue-300 text-xl">
-                                <iconify-icon 
-                                    icon="solar:arrow-up-broken"
-                                    style="width: 16px; height: 16px;">                                                                      
-                                </iconify-icon>
-                            </button>
-                            <button 
-                                id="orderItemStatusDown"
-                                class="bg-blue-800 p-3 flex items-center justify-center rounded text-blue-300 text-xl">
-                                <iconify-icon 
-                                    icon="solar:arrow-down-broken"
-                                    style="width: 16px; height: 16px;">
-                                </iconify-icon>
-                            </button>
-                            <button
-                                class="bg-blue-800 p-3 flex items-center justify-center rounded text-blue-300 text-xl">
-                                <iconify-icon 
-                                    icon="fluent:clipboard-text-edit-20-regular"
-                                    style="width: 16px; height: 16px;">                                                                      
-                                </iconify-icon>
-                            </button>
-                            <button
-                                class="bg-blue-800 p-3 flex items-center justify-center rounded text-blue-300 text-xl">
-                                <iconify-icon 
-                                    icon="material-symbols-light:delete-outline" width="24"
-                                    height="24">                                                                      
-                                </iconify-icon>
-                            </button>
-                        </td>
+                        <td class="px-4 py-2" id="purchase_orderItemAmount">LKR: 25700.00</td>
+                        <td class="px-4 py-2" id="purchase_orderItemStatus">Packing</td>
                     </tr>
                 </tbody>
             </table>
@@ -161,21 +137,22 @@
                                             <th class="px-4 font-normal py-2">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-sm" id="orderContainer">
-                                        <tr id="orderItem"
+                                    <tbody class="text-sm" id="purchasingContainer">
+                                        <tr id="purchaseItem"
                                             class="border-b border-blue-700 hover:bg-blue-700 hover:bg-opacity-10 cursor-pointer">
                                             <td class="px-4 py-2" id="col_01">TM_1</td>
-                                            <td class="px-4 py-2 flex items-center">12 Dec, 2024</td>
-                                            <td class="px-4 py-2">8 items</td>
-                                            <td class="px-4 py-2" id="orderItemAmount">LKR: 25700.00</td>
-                                            <td class="px-4 py-2" id="orderItemStatus">Packing</td>
+                                            <td class="px-4 py-2 flex items-center" id="col_02">12 Dec, 2024</td>
+                                            <td class="px-4 py-2" id="col_03">8 items</td>
+                                            <td class="px-4 py-2" id="col_04">LKR: 25700.00</td>
+                                            <td class="px-4 py-2" id="col_05">Packing</td>
                                             <td class="px-4 py-2 flex space-x-2">
                                                 <button 
-                                                    id="orderItemStatusUp"
+                                                    id="ViewPurchase"
                                                     class="bg-blue-800 p-3 flex items-center justify-center rounded text-blue-300 text-xl">
                                                     <iconify-icon icon="mdi:eye-outline" style="font-size: 24px;"></iconify-icon>
                                                 </button>
                                                 <button
+                                                    id="deletePurchase"
                                                     class="bg-blue-800 p-3 flex items-center justify-center rounded text-blue-300 text-xl">
                                                     <iconify-icon 
                                                         icon="material-symbols-light:delete-outline" width="24"

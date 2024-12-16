@@ -71,7 +71,6 @@ function arrangeFrontEnd(json) {
         }).format(dateObj);
 
         let numericValue = parseFloat(orderItem.qty * orderItem.product.price);
-
         // Format the number as currency
         let formattedCurrency = new Intl.NumberFormat('en-US', {
             style: 'currency',
