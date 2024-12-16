@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invoice</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel='stylesheet'
+              href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css'>
+    </head>
+
+    <body class="bg-gray-100 font-sans">
+        <div class="w-full bg-white shadow-md py-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center px-4">
+                <div class="text-xl font-bold text-indigo-600">TechMart</div>
+                <ul class="flex gap-6 text-gray-600">
+                    <li class="cursor-pointer hover:text-indigo-600">Home</li>
+                    <li class="cursor-pointer hover:text-indigo-600">Shop</li>
+                    <li class="cursor-pointer hover:text-indigo-600">Laptops</li>
+                    <li class="cursor-pointer hover:text-indigo-600">Desktops</li>
+                    <li class="cursor-pointer hover:text-indigo-600">Accessories</li>
+                    <li class="cursor-pointer hover:text-indigo-600">About Us</li>
+                    <li class="cursor-pointer hover:text-indigo-600">Contact</li>
+                </ul>
+                <div class="flex gap-4 text-gray-600">
+                    <iconify-icon class="cursor-pointer text-lg" icon="ic:round-search"></iconify-icon>
+                    <iconify-icon class="cursor-pointer text-lg" icon="iconoir:add-to-cart"></iconify-icon>
+                    <iconify-icon class="cursor-pointer text-lg" icon="teenyicons:user-solid"></iconify-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex justify-center">
+            <div class="flex justify-center items-center gap-2 bg-indigo-600 p-3 rounded-lg shadow-md cursor-pointer mt-10 hover:bg-indigo-700 transition-all duration-300"
+                 id="downloadInvoice" style="width: fit-content;">
+                <iconify-icon class="text-white" icon="mdi:download" style="font-size: 24px;"></iconify-icon>
+                <span class="text-white font-medium">Download Invoice</span>
+            </div>
+        </div>
+
+        <!-- Invoice Section -->
+        <div class="max-w-7xl mx-auto bg-white shadow-md rounded-lg mt-10 p-8" id="invoiceSection">
+            <!-- Invoice Header -->
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-indigo-600">Invoice</h1>
+                    <p class="text-gray-600 mt-2">
+                        <span class="font-semibold">Order ID:</span> TM_01
+                    </p>
+                    <p class="text-gray-600">
+                        <span class="font-semibold">Order Date:</span> 2024/05/05 7:30 AM
+                    </p>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold text-gray-800">Invoice To</h2>
+                    <p class="text-gray-600 mt-2">Vihanga Heshan</p>
+                    <p class="text-gray-600">231/D, Deenapamunuwa</p>
+                    <p class="text-gray-600">Urapola</p>
+                </div>
+            </div>
+
+            <!-- Invoice Table -->
+            <table class="w-full border-collapse border border-gray-300 mb-6">
+                <thead>
+                    <tr class="bg-indigo-50">
+                        <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Product ID</th>
+                        <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Product</th>
+                        <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Price</th>
+                        <th class="border border-gray-300 text-left py-3 px-4 text-gray-700">Qty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700">TM_01</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700">Gaming Office High Back Computer
+                            Ergonomic Adjustable S...</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700">LKR 7,500.00</td>
+                        <td class="border border-gray-300 py-3 px-4 text-gray-700">1</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Summary Section -->
+            <div class="flex justify-end">
+                <div class="w-1/2">
+                    <div class="flex justify-between py-2">
+                        <span class="text-gray-600">Sub Total:</span>
+                        <span class="font-medium">LKR 7,500.00</span>
+                    </div>
+                    <div class="flex justify-between py-2">
+                        <span class="text-gray-600">Shipping Cost:</span>
+                        <span class="font-medium">LKR 600.00</span>
+                    </div>
+                    <hr class="border-gray-300 my-2">
+                    <div class="flex justify-between py-2 text-lg font-bold">
+                        <span>Total:</span>
+                        <span>LKR 8,100.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center text-gray-500 text-sm">
+                Thank you for shopping with TechMart. If you have any questions, feel free to contact us.
+            </div>
+        </div>
+
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
+        <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+        <script>
+            document.getElementById("downloadInvoice").addEventListener("click", function () {
+                const invoiceElement = document.getElementById("invoiceSection");
+                const options = {
+                    margin: 1,
+                    filename: 'Invoice_TM_01.pdf',
+                    image: {type: 'jpeg', quality: 0.98},
+                    html2canvas: {scale: 2},
+                    jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait'}
+                };
+                html2pdf().set(options).from(invoiceElement).save();
+            });
+        </script>
+    </body>
+
+</html>
