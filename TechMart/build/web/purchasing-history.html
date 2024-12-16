@@ -25,6 +25,88 @@
 
     <body class="cursor-default w-dvw background-color bg-no-repeat">
 
+
+        <div class="absolute flex justify-center items-center flex-col bg-opacity-75" 
+             style="z-index: 2; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.75)">
+            <div class="flex justify-center items-center gap-2 bg-slate-300 p-2 rounded mb-2">
+                <iconify-icon class="text-red-500" icon="mdi:download" style="font-size: 24px;"></iconify-icon>
+                <span class="text-red-500">Download</span>
+            </div>
+            <div
+                class="w-2/3 bg-white border border-gray-300 shadow-md rounded-md overflow-hidden"
+                >
+                <!-- Header -->
+                <div class="bg-gray-800 text-white px-5 py-3 flex justify-between">
+                    <h2 class="font-bold text-lg">Invoice</h2>
+                    <button class="text-white hover:text-gray-400">&times;</button>
+                </div>
+
+                <!-- Invoice Body -->
+                <div class="p-6">
+                    <!-- Top Section -->
+                    <div class="flex justify-between mb-6">
+                        <!-- Invoice Details -->
+                        <div>
+                            <h3 class="font-bold text-gray-700 text-lg mb-2">Invoice</h3>
+                            <p class="text-gray-700">Invoice Number: <span class="font-medium">TM_01</span></p>
+                            <p class="text-gray-700">Date: <span class="font-medium">2024/05/05 7:30 AM</span></p>
+                        </div>
+
+                        <!-- Invoice To -->
+                        <div>
+                            <h3 class="font-bold text-gray-700 text-lg mb-2 text-right">
+                                Invoice To
+                            </h3>
+                            <p class="text-right text-gray-700">Vihang Heshan,</p>
+                            <p class="text-right text-gray-700">231/D, Deenapamunwa,</p>
+                            <p class="text-right text-gray-700">Urapola.</p>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <table class="w-full border-collapse mb-5">
+                        <thead>
+                            <tr class="border-b-2 border-gray-300">
+                                <th class="text-left font-semibold text-gray-700 py-2">Product ID</th>
+                                <th class="text-left font-semibold text-gray-700">Product</th>
+                                <th class="text-left font-semibold text-gray-700">Price</th>
+                                <th class="text-left font-semibold text-gray-700">Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Product Row -->
+                            <tr class="border-b border-gray-200">
+                                <td class="py-2 text-gray-700">TM_01</td>
+                                <td class="truncate w-2/3 text-gray-700">
+                                    Gaming Office High Back Computer Ergonomic Adjustable S...
+                                </td>
+                                <td class="text-gray-700">LKR 7,500.00</td>
+                                <td class="text-gray-700">1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Invoice Totals -->
+                    <div class="flex flex-col items-end">
+                        <p class="text-gray-600 w-1/2 flex justify-between">
+                            <span>Sub Total: </span>
+                            <span class="font-medium ml-2">LKR 7,500.00</span>
+                        </p>
+                        <p class="text-gray-600 w-1/2 flex justify-between">
+                            <span>Shipping Cost: </span>
+                            <span class="font-medium ml-2">LKR 600.00</span>
+                        </p>
+                        <hr class="border-t-2 border-gray-300 w-1/2 my-1" />
+                        <p class="text-gray-800 font-bold text-lg w-1/2 flex justify-between">
+                            <span>Total: </span>
+                            <span class="ml-2">LKR 8,100.00</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Order item table model -->
         <div 
             id="purchasedItemModel"
