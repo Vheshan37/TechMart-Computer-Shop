@@ -31,10 +31,9 @@ public class Orders extends HttpServlet {
 
         // processing stage
         User seller = getSeller(session, req, responseObject, gson);
-        List<Order> orderList = getOrderList(session, seller);
-        responseObject.add("orderList", gson.toJsonTree(orderList));
-        List<OrderItem> allOrderItems = getOrderItemsFromOrders(session, orderList);
-        responseObject.add("orderItemList", gson.toJsonTree(allOrderItems));
+
+        List<OrderItem> orderItems = getSellerOrders(session, req, responseObject, gson);
+        responseObject.add("orderItemList", gson.toJsonTree(orderItems));
 
         // finalizing stage
         session.close();
@@ -52,28 +51,16 @@ public class Orders extends HttpServlet {
 
         return user;
     }
+    
+    public List<OrderItem> getSellerOrders(Session session, HttpServletRequest req, JsonObject responseObject, Gson gson) {
+        Criteria orderItemCriteria = session.createCriteria(OrderItem.class);
+        List<OrderItem> orderItems = orderItemCriteria.list();  // Fetch OrderItems for this Order
 
-    public List<Order> getOrderList(Session session, User user) {
-        Criteria orderTable = session.createCriteria(Order.class);
-        orderTable.add(Restrictions.eq("user", session.get(User.class, user.getId())));
-        List<Order> orderList = orderTable.list();
-        return orderList;
-    }
-
-    public List<OrderItem> getOrderItemsFromOrders(Session session, List<Order> orderList) {
         List<OrderItem> allOrderItems = new ArrayList<>();
-
-        for (Order order : orderList) {
-            order.getUser().setPassword(null);
-            order.getUser().setVerification(null);
-            Criteria orderItemCriteria = session.createCriteria(OrderItem.class);
-            orderItemCriteria.add(Restrictions.eq("order", order)); // Match Order in OrderItem
-            List<OrderItem> orderItems = orderItemCriteria.list();  // Fetch OrderItems for this Order
-            for (OrderItem orderItem : orderItems) {
-                orderItem.getOrder().getUser().setPassword(null);
-                orderItem.getOrder().getUser().setVerification(null);
+        for (OrderItem orderItem : orderItems) {
+            if (orderItem.getProduct().getUser() == getSeller(session, req, responseObject, gson)) {
+                allOrderItems.add(orderItem);
             }
-            allOrderItems.addAll(orderItems); // Add them to the combined list
         }
 
         return allOrderItems;
