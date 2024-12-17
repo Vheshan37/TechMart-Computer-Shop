@@ -47,6 +47,11 @@ async function advancedSearch() {
 function loadCategoryList(selector, list, propertyArray) {
     const selectorElement = document.getElementById(selector);
     selectorElement.innerHTML = "";
+    let option = document.createElement("option");
+    option.classList = "text-black";
+    option.innerHTML = "All Category";
+    option.value = "";
+    selectorElement.appendChild(option);
     list.forEach(item => {
         let option = document.createElement("option");
         option.classList = "text-black";
