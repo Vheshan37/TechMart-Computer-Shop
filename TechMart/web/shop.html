@@ -53,6 +53,71 @@
                 <iconify-icon icon="ic:round-search" class="px-3 text-xl cursor-pointer" onclick="doSearch();"></iconify-icon>
             </div>
 
+
+            <!--Advance Search-->
+            <div class="bg-white bg-opacity-5 rounded my-4 flex flex-col w-8/12 p-6">
+                <div class="text-2xl font-bold text-white text-opacity-80 mb-4">Advanced Search</div>
+
+                <!-- Search Field -->
+                <div class="mb-6">
+                    <input type="text"
+                           class="bg-white bg-opacity-10 outline-none text-white placeholder-gray-500 rounded-lg px-4 py-2 w-full"
+                           placeholder="Search by keywords..." id="advancedSearchInput">
+                </div>
+
+                <!-- Filter Options -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Categories -->
+                    <div class="flex flex-col">
+                        <label for="categorySelect" class="text-white text-opacity-75 mb-2">Category</label>
+                        <select id="categorySelect"
+                                class="bg-white bg-opacity-10 outline-none text-white rounded-lg px-4 py-2">
+                            <option value="" disabled selected>Select Category</option>
+                        </select>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="flex flex-col">
+                        <label class="text-white text-opacity-75 mb-2">Price Range</label>
+                        <div class="flex items-center gap-2">
+                            <input type="number"
+                                   class="bg-white bg-opacity-10 outline-none text-white rounded-lg px-4 py-2 w-1/2"
+                                   placeholder="Min" id="minPrice">
+                            <input type="number"
+                                   class="bg-white bg-opacity-10 outline-none text-white rounded-lg px-4 py-2 w-1/2"
+                                   placeholder="Max" id="maxPrice">
+                        </div>
+                    </div>
+
+                    <!-- Ratings -->
+                    <div class="flex flex-col">
+                        <label for="ratingSelect" class="text-white text-opacity-75 mb-2">Brand</label>
+                        <select id="ratingSelect"
+                                class="bg-white bg-opacity-10 outline-none text-white rounded-lg px-4 py-2">
+                            <option value="" disabled selected>Select Brand</option>
+                        </select>
+                    </div>
+
+                    <!-- Availability -->
+                    <div class="flex flex-col">
+                        <label for="availabilitySelect" class="text-white text-opacity-75 mb-2">Availability</label>
+                        <select id="availabilitySelect"
+                                class="bg-white bg-opacity-10 outline-none text-white rounded-lg px-4 py-2">
+                            <option value="" disabled selected>Select Availability</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Apply & Reset Buttons -->
+                <div class="flex justify-end gap-4 mt-6">
+                    <button class="purple-shadow-btn my-6 px-6 py-3 rounded hover:scale-105 transition duration-500" onclick="advancedSearch();">Apply</button>
+                    <button class="purple-shadow-btn-outline my-6 px-6 py-3 rounded hover:scale-105 transition duration-500">Reset</button>
+                </div>
+            </div>
+            <!--Advance Search-->
+
+
+
             <div class="p-1 pb-4 w-10/12">
 
                 <div class="text-pink-600 text-2xl font-semibold pb-4">All Products</div>

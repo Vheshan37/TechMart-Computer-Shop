@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.HibernateUtil;
+import model.entity.Category;
+import model.entity.CategoryHasBrand;
 import model.entity.Product;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -42,6 +44,10 @@ public class LoadShopView extends HttpServlet {
 
             responseObject.add("ProductList", gson.toJsonTree(ProductList));
         }
+
+        Criteria categoryTable = session.createCriteria(Category.class);
+        List<Category> categoryList = categoryTable.list();
+        responseObject.add("categoryList", gson.toJsonTree(categoryList));
 
         resp.setContentType("application/json");
         resp.getWriter().write(gson.toJson(responseObject));

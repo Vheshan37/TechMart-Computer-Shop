@@ -1,78 +1,117 @@
 function shopOnload() {
-    loadShopView("");
+    doSearch(true);
+    productSlideClone = document.getElementById("productSlide");
 }
 
-function doSearch() {
-    const searchInput = document.getElementById("searchInput").value;
-    loadShopView(searchInput);
+async function doSearch(condition) {
+    let searchInput = "";
+    if (condition) {
+        searchInput = "";
+    } else {
+        searchInput = document.getElementById("searchInput").value;
+    }
+
+    const response = await fetch("LoadShopView?q=" + searchInput);
+    if (response.ok) {
+        const json = await response.json();
+        loadCategoryList("categorySelect", json.categoryList, ["id", "category"]);
+        loadShopView(json);
+    } else {
+        console.log("response error: " + response.status);
+    }
 }
 
-async function loadShopView(text) {
-    const response = await fetch("LoadShopView?q=" + text);
+async function advancedSearch() {
+    const category = document.getElementById("categorySelect").value;
+    const minPrice = document.getElementById("minPrice").value;
+    const maxPrice = document.getElementById("maxPrice").value;
+
+    const formData = new FormData();
+    formData.append("category", category);
+    formData.append("minPrice", minPrice);
+    formData.append("maxPrice", maxPrice);
+
+    const response = await fetch("LoadAdvanceSearch", {
+        method: "POST",
+        body: formData
+    });
 
     if (response.ok) {
         const json = await response.json();
+        loadShopView(json);
+    } else {
+        console.log("response error: " + response.status);
+    }
+}
 
+function loadCategoryList(selector, list, propertyArray) {
+    const selectorElement = document.getElementById(selector);
+    selectorElement.innerHTML = "";
+    list.forEach(item => {
+        let option = document.createElement("option");
+        option.classList = "text-black";
+        option.innerHTML = item[propertyArray[1]];
+        option.value = item[propertyArray[0]];
+        selectorElement.appendChild(option);
+    });
+}
 
-        let productSlideClone = document.getElementById("productSlide");
-        document.getElementById("productContainer").innerHTML = "";
+let productSlideClone;
+async function loadShopView(json) {
+    document.getElementById("productContainer").innerHTML = "";
 
-        json.ProductList.forEach(productItem => {
-            let cloneElement = productSlideClone.cloneNode(true);
-            cloneElement.querySelector("#blurBackground").style.backgroundImage = "url('img/Product/" + productItem.title + "_(" + productItem.id + ")_(1).jpg')";
-            cloneElement.querySelector("#productImage").src = "img/Product/" + productItem.title + "_(" + productItem.id + ")_(1).jpg";
-            cloneElement.querySelector("#productPrice").innerHTML = "LKR. " + productItem.price.toLocaleString('en-US') + ".00";
-            cloneElement.querySelector("#productTitle").innerHTML = productItem.title;
-            cloneElement.querySelector("#productTitle").title = productItem.title;
+    json.ProductList.forEach(productItem => {
+        let cloneElement = productSlideClone.cloneNode(true);
+        cloneElement.querySelector("#blurBackground").style.backgroundImage = "url('img/Product/" + productItem.title + "_(" + productItem.id + ")_(1).jpg')";
+        cloneElement.querySelector("#productImage").src = "img/Product/" + productItem.title + "_(" + productItem.id + ")_(1).jpg";
+        cloneElement.querySelector("#productPrice").innerHTML = "LKR. " + productItem.price.toLocaleString('en-US') + ".00";
+        cloneElement.querySelector("#productTitle").innerHTML = productItem.title;
+        cloneElement.querySelector("#productTitle").title = productItem.title;
 
-            cloneElement.querySelector("#addToCart").addEventListener("click", async () => {
-                const cartResponse = await fetch("AddToCart?id=" + productItem.id);
+        cloneElement.querySelector("#addToCart").addEventListener("click", async () => {
+            const cartResponse = await fetch("AddToCart?id=" + productItem.id);
 
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                });
-
-                if (cartResponse.ok) {
-                    const cartJson = await cartResponse.json();
-                    if (cartJson.success) {
-                        Toast.fire({
-                            timer: 2000,
-                            icon: "success",
-                            title: cartJson.content
-                        });
-                    } else {
-                        Toast.fire({
-                            timer: 4000,
-                            icon: "info",
-                            title: cartJson.content
-                        });
-                    }
-                } else {
-                    Toast.fire({
-                        timer: 4000,
-                        icon: "error",
-                        title: "Something went wrong! Please try again later"
-                    });
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
             });
 
-            cloneElement.querySelector("#productRead").onclick = function () {
-                window.location = "single-product.html?id=" + productItem.id;
+            if (cartResponse.ok) {
+                const cartJson = await cartResponse.json();
+                if (cartJson.success) {
+                    Toast.fire({
+                        timer: 2000,
+                        icon: "success",
+                        title: cartJson.content
+                    });
+                } else {
+                    Toast.fire({
+                        timer: 4000,
+                        icon: "info",
+                        title: cartJson.content
+                    });
+                }
+            } else {
+                Toast.fire({
+                    timer: 4000,
+                    icon: "error",
+                    title: "Something went wrong! Please try again later"
+                });
             }
-
-            document.getElementById("productContainer").append(cloneElement);
         });
 
-        preLoader();
+        cloneElement.querySelector("#productRead").onclick = function () {
+            window.location = "single-product.html?id=" + productItem.id;
+        }
 
-    } else {
-        console.log("Response Error");
-    }
+        document.getElementById("productContainer").append(cloneElement);
+    });
+
+    preLoader();
 }
